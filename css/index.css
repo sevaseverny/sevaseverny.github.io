@@ -1,0 +1,42 @@
+html:not([data-scroll='0']) #top {
+  background: rgba(0, 0, 0, 0.5);
+  height: 22vh;
+}
+
+html:not([data-scroll='0']) #contacts {
+  top: 5.5vh;
+  left: 5vh;
+}
+
+html:not([data-scroll='0']) #logoblock {
+  width: 10vh;
+  height: 16vh;
+  top: 3vh;
+  right: 3vh;
+}
+
+html:not([data-scroll='0']) #logo {
+  width: 10vh;
+  height: 16vh;
+}
+
+html:not([data-scroll='0']) #first {
+  padding-top: 30vh;
+}
+
+.html {
+  background-color: #000000;
+}
+
+body {
+  position: relative;
+}
+
+@media (min-width: 481px), print {}
+
+@media (max-width: 480px) {
+  body {
+    overflow-x: hidden;
+    min-width: 320px;
+  }
+}

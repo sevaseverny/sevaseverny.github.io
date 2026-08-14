@@ -1,0 +1,774 @@
+#top {
+  display: block;
+  z-index: 100;
+  position: fixed;
+  width: 100%;
+  height: 44vh;
+  align-items: center;
+  background: rgba(0, 0, 0, 1);
+  transition: all 0.5s ease-in-out;
+}
+
+#contacts {
+  display: block;
+  z-index: 200;
+  position: fixed;
+  top: 23vh;
+  left: 7vh;
+  font-family: montserrat, sans-serif;
+      font-size: calc(1.1vh + 1vw);
+  line-height: 110%;
+  color: #FFFFFF !important;
+  font-weight: 300;
+  transition: all 0.5s ease-in-out;
+}
+
+@media (min-width: 80vh) {
+  #contacts {
+    top: calc(22vh - 8.25vw);
+    left: 7vw;
+    font-size: 3vw;
+    font-weight: 400;
+  }
+
+  html:not([data-scroll='0']) #contacts {
+    font-size: 2vh;
+    top: 5.5vh;
+    left: 5vh;
+  }
+}
+
+#logoblock {
+  display: block;
+  z-index: 200;
+  position: fixed;
+  width: 20vh;
+  height: 32vh;
+  top: 6vh;
+  right: 5vh;
+  transition: all 0.5s ease-in-out;
+}
+
+#logo {
+  object-fit: contain;
+  width: 20vh;
+  height: 32vh;
+  transition: all 0.5s ease-in-out;
+}
+
+#first {
+  padding-top: 44vh;
+  transition: all 0.5s ease-in-out;
+}
+
+#other {
+  background-color: transparent;
+  z-index: 238;
+  text-align: center !important;
+  padding: 14vw 10vw 10vw;
+}
+
+#other h1 {
+  color: #FFFFFF !important;
+  font-size: 9vw !important;
+  font-weight: 900 !important;
+  line-height: 8.9vw !important;
+}
+
+.body {
+  margin: 0 !important;
+  font-family: 'Montserrat', sans-serif;
+}
+
+#contacts a {
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+}
+
+.vcontainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.vcontainer a {
+  width: 100% !important;
+}
+
+#rm-poster {
+  width: 50.73%;
+  max-width: 50.73%;
+}
+
+#romanov {
+  width: 49.27%;
+  max-width: 49.27%;
+}
+
+#nemo {
+  width: 55.91%;
+  max-width: 55.91%;
+}
+
+#avene {
+  width: 44.09%;
+  max-width: 44.09%;
+}
+
+#ss-vc {
+  width: 37.12%;
+  max-width: 37.12%;
+}
+
+#ss-vc1,
+#ss-vc2 {
+  height: 50%;
+  max-height: 50%;
+}
+
+#ss-billboard {
+  width: 62.88%;
+  max-width: 62.88%;
+}
+
+#shvidkatsa {
+  width: 79.42%;
+  max-width: 79.42%;
+}
+
+#pizzaslime {
+  width: 20.58%;
+  max-width: 20.58%;
+}
+
+#icomos {
+  width: 38.96%;
+  max-width: 38.96%;
+}
+
+#woodapki {
+  width: 61.04%;
+  max-width: 61.04%;
+}
+
+#boobochki {
+  width: 54.24%;
+  max-width: 54.24%;
+}
+
+#karpachev {
+  width: 45.76%;
+  max-width: 45.76%;
+}
+
+#solo-horo {
+  width: 49.37%;
+  max-width: 49.37%;
+}
+
+#solovki-logo {
+  height: 71.92%;
+  max-height: 71.92%;
+}
+
+#horoshy {
+  height: 28.08%;
+  max-height: 28.08%;
+}
+
+#solovki-site {
+  width: 50.63%;
+  max-width: 50.63%;
+}
+
+#rm-magazine1,
+#rm-magazine2 {
+  width: 100%;
+  max-width: 100%;
+}
+
+#cicerino {
+  width: 50.7%;
+  max-width: 50.7%;
+}
+
+#karavan {
+  width: 49.3%;
+  max-width: 49.3%;
+}
+
+#seedsbaba {
+  width: 27.88%;
+  max-width: 27.88%;
+}
+
+#suhar {
+  width: 72.12%;
+  max-width: 72.12%;
+}
+
+#furanflex {
+  width: 68.89%;
+  max-width: 68.89%;
+}
+
+#sargasso {
+  width: 31.11%;
+  max-width: 31.11%;
+}
+
+#bike1 {
+  width: 45.24%;
+  max-width: 45.24%;
+}
+
+#bike2 {
+  width: 54.76%;
+  max-width: 54.76%;
+}
+
+#dok-building {
+  width: 66.67%;
+  max-width: 66.67%;
+}
+
+#dok2 {
+  width: 33.33%;
+  max-width: 33.33%;
+}
+
+#dok-billboard,
+#dok-maket {
+  height: 50%;
+  max-height: 50%;
+}
+
+#robo, #led, #starfit, #xaos {
+  width: 50%;
+  max-width: 50%;
+}
+
+#mp-main {
+  width: 40.81%;
+  max-width: 40.81%;
+}
+
+#mp-stuff {
+  width: 59.19%;
+  max-width: 59.19%;
+}
+
+#mp-art, #mp-prod {
+  height: 26.85%;
+  max-height: 26.85%;
+}
+
+#mp-three {
+  height: 46.3%;
+  max-height: 46.3%;
+}
+
+#nn-surface {
+  width: 30.12%;
+  max-width: 30.12%;
+}
+
+#daccordo {
+  width: 69.88%;
+  max-width: 69.88%;
+}
+
+#notbek {
+  width: 76.59%;
+  max-width: 76.59%;
+}
+
+#smzs {
+  width: 23.41%;
+  max-width: 23.41%;
+}
+
+#vilovit {
+  width: 16.77%;
+  max-width: 16.77%;
+}
+
+#victory-flyer {
+  width: 38.24%;
+  max-width: 38.24%;
+}
+
+#victory-3d {
+  width: 44.99%;
+  max-width: 44.99%;
+}
+
+#ae {
+  width: 69.96%;
+  max-width: 69.96%;
+}
+
+#profi {
+  width: 30.04%;
+  max-width: 30.04%;
+}
+
+#nika {
+  width: 33.5%;
+  max-width: 33.5%;
+}
+
+#castelmonte {
+  width: 66.5%;
+  max-width: 66.5%;
+}
+
+#gorachudes {
+  width: 100%;
+  max-width: 100%;
+}
+
+#puz-poster {
+  width: 56.03%;
+  max-width: 56.03%;
+}
+
+#puz-newspaper {
+  width: 43.97%;
+  max-width: 43.97%;
+}
+
+#tgv {
+  width: 61.47%;
+  max-width: 61.47%;
+}
+
+#lansada {
+  width: 38.53%;
+  max-width: 38.53%;
+}
+
+#keylight {
+  width: 54.2%;
+  max-width: 54.2%;
+}
+
+#palto {
+  width: 50.03%;
+  max-width: 50.03%;
+}
+
+#zabor {
+  width: 70.12%;
+  max-width: 70.12%;
+}
+
+#avanta {
+  width: 29.88%;
+  max-width: 29.88%;
+}
+
+#suhanovo {
+  width: 38.37%;
+  max-width: 38.37%;
+}
+
+#miroir {
+  width: 61.63%;
+  max-width: 61.63%;
+}
+
+#gorod-text {
+  width: 65.52%;
+  max-width: 65.52%;
+}
+
+#zima {
+  width: 34.48%;
+  max-width: 34.48%;
+}
+
+#em-poster1,
+#em-poster2,
+#em-magazine1,
+#em-magazine2 {
+  width: 50%;
+  max-width: 50%;
+}
+
+#chinastraat-space1 {
+  width: 68.57%;
+  max-width: 68.57%;
+}
+
+#chinastraat-photo {
+  height: 54.55%;
+  max-height: 54.55%;
+}
+
+#chinastraat-3d1 {
+  height: 45.45%;
+  max-height: 45.45%;
+}
+
+#chinastraat-space2 {
+  width: 31.43%;
+  max-width: 31.43%;
+}
+
+#chinastraat-3d2,
+#chinastraat-3d3,
+#chinastraat-3d4 {
+  height: 33.33%;
+  max-height: 33.33%;
+}
+
+#next {
+  width: 50.01%;
+  max-width: 50.01%;
+}
+
+#kaspers {
+  width: 49.99%;
+  max-width: 49.99%;
+}
+
+#scic-magazine {
+  width: 49.05%;
+  max-width: 49.05%;
+}
+
+#loive {
+  width: 49.97%;
+  max-width: 49.97%;
+}
+/* #loive {
+  width: 50.95%;
+  max-width: 50.95%;
+}*/
+
+#akros-choco {
+  width: 66.19%;
+  max-width: 66.19%;
+}
+
+#karel {
+  width: 33.81%;
+  max-width: 33.81%;
+}
+
+#mga-flyer {
+  width: 46.12%;
+  max-width: 46.12%;
+}
+
+#mga-vc {
+  width: 53.88%;
+  max-width: 53.88%;
+}
+
+#isht {
+  width: 68.75%;
+  max-width: 68.75%;
+}
+
+#krivonosov {
+  width: 31.25%;
+  max-width: 31.25%;
+}
+
+#peter-wolf {
+  width: 38.4%;
+  max-width: 38.4%;
+}
+
+#alice-house {
+  width: 61.6%;
+  max-width: 61.6%;
+}
+
+#bansys-w {
+  width: 67.23%;
+  max-width: 67.23%;
+}
+
+#bansys-h {
+  width: 32.77%;
+  max-width: 32.77%;
+}
+
+#spray {
+  width: 39.11%;
+  max-width: 39.11%;
+}
+
+#marta {
+  width: 60.89%;
+  max-width: 60.89%;
+}
+
+#kassa {
+  width: 46.94%;
+  max-width: 46.94%;
+}
+
+#marykay {
+  width: 53.06%;
+  max-width: 53.06%;
+}
+
+#asm {
+  width: 40.42%;
+  max-width: 40.42%;
+}
+
+#sport-art {
+  width: 27.93%;
+  max-width: 27.93%;
+}
+
+#fm {
+  width: 31.65%;
+  max-width: 31.65%;
+}
+
+#era1 {
+  width: 42.42%;
+  max-width: 42.42%;
+}
+
+#era-site {
+  height: 54.67%;
+  max-height: 54.67%;
+}
+
+#era-pen {
+  height: 45.33%;
+  max-height: 45.33%;
+}
+
+#era2 {
+  width: 57.58%;
+  max-width: 57.58%;
+}
+
+#era-usb {
+  height: 61.53%;
+  max-height: 61.53%;
+}
+
+#era-znachok {
+  height: 61.53%;
+  max-height: 61.53%;
+}
+
+#foto-vetro {
+  width: 58.82%;
+  max-width: 58.82%;
+}
+
+#aleatory {
+  width: 41.18%;
+  max-width: 41.18%;
+}
+
+#doutrart {
+  width: 42.86%;
+  max-width: 42.86%;
+}
+
+#la {
+  width: 57.14%;
+  max-width: 57.14%;
+}
+
+#estetic {
+  width: 59.66%;
+  max-width: 59.66%;
+}
+
+#neon {
+  width: 40.34%;
+  max-width: 40.34%;
+}
+
+#volen-logo {
+  width: 67.74%;
+  max-width: 67.74%;
+}
+
+#sebezh {
+  width: 32.26%;
+  max-width: 32.26%;
+}
+
+#cyberstars {
+  width: 83.57%;
+  max-width: 83.57%;
+}
+
+#volen-chel {
+  width: 16.43%;
+  max-width: 16.43%;
+}
+
+#ml-logo {
+  width: 55.64%;
+  max-width: 55.64%;
+}
+
+#ml-3d {
+  width: 44.36%;
+  max-width: 44.36%;
+}
+
+#lost-logo {
+  width: 50.12%;
+  max-width: 50.12%;
+}
+
+#lost-photo {
+  width: 49.88%;
+  max-width: 49.88%;
+}
+
+#sprimus-vc {
+  width: 44.9%;
+  max-width: 44.9%;
+}
+
+#sprimus-3d {
+  width: 23.68%;
+  max-width: 23.68%;
+}
+
+#givitel-vita {
+  width: 31.42%;
+  max-width: 31.42%;
+}
+
+#provansal {
+  width: 50.98%;
+  max-width: 50.98%;
+}
+
+#premium-yachts {
+  width: 49.02%;
+  max-width: 49.02%;
+}
+
+#dana-gulsara {
+  width: 54.64%;
+  max-width: 54.64%;
+}
+
+#chinastraat-bar {
+  width: 45.36%;
+  max-width: 45.36%;
+}
+
+#rosstin {
+  width: 38.68%;
+  max-width: 38.68%;
+}
+
+#lighteffect {
+  width: 61.32%;
+  max-width: 61.32%;
+}
+#y4 {
+  width: 100%;
+  max-width: 100%;
+}
+
+#vira, #best-schools {
+  width: 50%;
+  max-width: 50%;
+}
+
+#safari-3d {
+  width: 60.23%;
+  max-width: 60.23%;
+}
+
+#zhivoi {
+  width: 39.77%;
+  max-width: 39.77%;
+}
+
+#ov, #alma {
+  width: 100%;
+  max-width: 100%;
+}
+
+#lost-map {
+  width: 58.78%;
+  max-width: 58.78%;
+}
+
+#zil-mj {
+  width: 41.22%;
+  max-width: 41.22%;
+}
+
+#zil, #mj-choco {
+  height: 50%;
+  max-height: 50%;
+}
+
+#tooth {
+  width: 33.27%;
+  max-width: 33.27%;
+}
+
+#teeth {
+  width: 66.73%;
+  max-width: 66.73%;
+}
+
+#glory-gallery {
+  width: 36%;
+  max-width: 36%;
+}
+
+#vardik-pres {
+  width: 64%;
+  max-width: 64%;
+}
+
+#vansgarantholod {
+  width: 51.45%;
+  max-width: 51.45%;
+}
+
+#unfinished-logo {
+  width: 48.55%;
+  max-width: 48.55%;
+}
+
+a {
+  display: flex;
+}
+
+a img {
+  width: 100% !important;
+}
+
+.image {
+  object-fit: cover;
+  height: 100%;
+}
+
+#lastlogoblock {
+  width: 100% !important;
+  text-align: center !important;
+}
+
+#lastlogo {
+  width: 36vw;
+  height: 57vw;
+}

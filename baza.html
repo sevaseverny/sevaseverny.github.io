@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>БАЗА</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange-dark:#D3300C;
+    --orange:#FF6A1A;
+    --orange-light:#FF9A42;
+    --gradient: linear-gradient(115deg, var(--orange-dark) 10%, var(--orange) 55%, var(--orange-light) 100%);
+    --ink:#141210;
+    --shadow-color:#3A3733;
+    --paper:#F2F0EC;
+    --paper-raise:#FFFFFF;
+    --gray-600:#6E6A64;
+    --gray-300:#D8D4CC;
+    --paper-dark:#E6E2D8;
+    --shadow-offset:8px;
+    --shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+    --shadow-sm: 5px 5px 0 var(--shadow-color);
+    --radius:0px;
+    --sp-1:4px; --sp-2:8px; --sp-3:16px; --sp-4:24px; --sp-5:40px; --sp-6:64px; --sp-7:96px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    padding:var(--sp-6) var(--sp-5) var(--sp-7);
+  }
+  .wrap{max-width:1080px;margin:0 auto;}
+  h1.page-title{
+    font-family:'Unbounded',sans-serif;
+    font-weight:900;
+    font-size:44px;
+    line-height:1.05;
+    margin:0 0 var(--sp-2);
+    letter-spacing:-0.01em;
+  }
+  .page-sub{
+    color:var(--gray-600);
+    font-size:16px;
+    margin:0 0 var(--sp-7);
+    max-width:560px;
+  }
+  section{margin-bottom:var(--sp-7);}
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:var(--sp-3);
+    margin-bottom:var(--sp-4);
+    border-bottom:2px solid var(--ink);
+    padding-bottom:var(--sp-2);
+  }
+  .section-num{
+    font-family:'Unbounded',sans-serif;
+    font-weight:700;
+    font-size:13px;
+    color:var(--orange-dark);
+  }
+  .section-title{
+    font-family:'Unbounded',sans-serif;
+    font-weight:700;
+    font-size:22px;
+    margin:0;
+  }
+  .section-desc{color:var(--gray-600);font-size:14px;margin:0 0 var(--sp-4);max-width:640px;}
+
+  /* COLOR */
+  .swatch-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--sp-3);}
+  .swatch{border:2px solid var(--ink);box-shadow:var(--shadow-sm);}
+  .swatch-fill{height:88px;}
+  .swatch-info{background:var(--paper-raise);padding:10px 12px;}
+  .swatch-name{font-weight:700;font-size:13px;}
+  .swatch-hex{font-size:12px;color:var(--gray-600);font-family:monospace;}
+
+  /* TYPE */
+  .type-row{display:flex;align-items:baseline;gap:var(--sp-4);padding:var(--sp-3) 0;border-bottom:1px solid var(--gray-300);}
+  .type-row:last-child{border-bottom:none;}
+  .type-label{width:150px;flex-shrink:0;color:var(--gray-600);font-size:12px;font-family:monospace;}
+  .t-display{font-family:'Unbounded',sans-serif;font-weight:900;text-transform:uppercase;}
+  .t-h1{font-size:40px;}
+  .t-h2{font-size:28px;}
+  .t-h3{font-size:20px;}
+  .t-eyebrow{font-family:'Unbounded',sans-serif;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;color:var(--orange-dark);}
+  .t-body{font-family:'Inter',sans-serif;font-size:16px;font-weight:400;}
+  .t-caption{font-family:'Inter',sans-serif;font-size:13px;color:var(--gray-600);}
+
+  /* BUTTONS */
+  .btn-grid{display:flex;flex-wrap:wrap;gap:var(--sp-5) var(--sp-4);align-items:flex-start;}
+  .btn-group{display:flex;flex-direction:column;gap:var(--sp-3);}
+  .btn-group-label{font-family:monospace;font-size:12px;color:var(--gray-600);}
+  .btn{
+    font-family:'Unbounded',sans-serif;
+    font-weight:700;
+    font-size:15px;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    border-radius:var(--radius);
+    padding:18px 30px;
+    border:none;
+    cursor:pointer;
+    box-shadow:var(--shadow);
+    transition:transform .12s ease, box-shadow .12s ease;
+    display:inline-block;
+  }
+  .btn:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--shadow-color);}
+  .btn-primary{background:var(--gradient);color:#fff;}
+  .btn-dark{background:var(--ink);color:#fff;}
+  .btn-outline{background:var(--paper-raise);color:var(--ink);border:2px solid var(--ink);padding:16px 28px;font-family:'Unbounded',sans-serif;font-weight:300;text-transform:none;font-size:15px;}
+  .btn-disabled{opacity:0.35;box-shadow:none;cursor:not-allowed;transform:none;}
+  .btn-sm{padding:12px 20px;font-size:13px;}
+  .btn-outline.btn-sm{padding:10px 18px;}
+  .btn-lg{padding:22px 38px;font-size:17px;}
+  .btn-outline.btn-lg{padding:20px 36px;}
+
+  /* CARDS */
+  .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-4);}
+  .card{
+    background:var(--paper-raise);
+    border:2px solid var(--ink);
+    box-shadow:var(--shadow-sm);
+    padding:var(--sp-4);
+  }
+  .card-tag{
+    display:inline-block;
+    background:var(--ink);
+    color:#fff;
+    font-family:'Unbounded',sans-serif;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    padding:4px 10px;
+    margin-bottom:var(--sp-3);
+  }
+  .card h4{font-family:'Unbounded',sans-serif;font-size:17px;margin:0 0 8px;}
+  .card p{font-size:14px;color:var(--gray-600);margin:0;line-height:1.5;}
+
+  /* SPACING */
+  .space-row{display:flex;align-items:center;gap:var(--sp-3);margin-bottom:10px;}
+  .space-bar{background:var(--orange);height:20px;}
+  .space-label{font-family:monospace;font-size:12px;width:130px;color:var(--gray-600);}
+
+  /* SHADOW TOKEN */
+  .shadow-demo{display:flex;gap:var(--sp-5);align-items:center;}
+  .shadow-box{width:120px;height:120px;background:var(--paper-raise);border:2px solid var(--ink);}
+
+  /* FORM */
+  .field{max-width:360px;}
+  .field label{display:block;font-family:'Unbounded',sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;color:var(--gray-600);}
+  .field input{
+    width:100%;
+    border:2px solid var(--ink);
+    background:var(--paper-raise);
+    padding:14px 14px;
+    font-family:'Inter',sans-serif;
+    font-size:15px;
+    border-radius:var(--radius);
+  }
+  .field input:focus{outline:none;box-shadow:var(--shadow-sm);}
+
+  footer{margin-top:var(--sp-7);border-top:2px solid var(--ink);padding-top:var(--sp-3);color:var(--gray-600);font-size:12px;}
+
+  /* HERO A — split */
+  .hero-a{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:var(--sp-5);
+    align-items:end;
+    padding:var(--sp-5) 0;
+    border-top:2px solid var(--ink);
+    border-bottom:2px solid var(--ink);
+  }
+  .hero-a .headline{
+    font-family:'Unbounded',sans-serif;
+    font-weight:900;
+    font-size:44px;
+    line-height:0.96;
+    letter-spacing:-0.01em;
+    text-transform:uppercase;
+    margin:12px 0 20px;
+  }
+  .hero-a .lead{font-size:15px;color:var(--gray-600);max-width:420px;margin:0 0 24px;}
+  .hero-a .side{
+    border-left:2px solid var(--ink);
+    padding-left:var(--sp-4);
+    display:flex;
+    flex-direction:column;
+    gap:var(--sp-4);
+  }
+  .hero-a .stat b{
+    display:block;
+    font-family:'Unbounded',sans-serif;
+    font-weight:900;
+    font-size:36px;
+    line-height:1;
+  }
+  .hero-a .stat span{
+    font-family:monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    color:var(--gray-600);
+  }
+
+  /* HERO B — statement, inverted */
+  .hero-b{
+    background:var(--ink);
+    color:#fff;
+    padding:var(--sp-7) var(--sp-5);
+    text-align:center;
+    border:2px solid var(--ink);
+  }
+  .hero-b .t-eyebrow{color:var(--orange-light);}
+  .hero-b h3{
+    font-family:'Unbounded',sans-serif;
+    font-weight:900;
+    font-size:44px;
+    text-transform:uppercase;
+    line-height:1.02;
+    margin:16px 0 20px;
+  }
+  .hero-b p{font-size:15px;color:#B8B3AB;max-width:440px;margin:0 auto 32px;}
+  .cta-row{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;}
+  .btn-outline-light{background:transparent;color:#fff;border:2px solid #fff;padding:16px 28px;font-family:'Unbounded',sans-serif;font-weight:300;text-transform:none;font-size:15px;}
+
+  /* TABLE / SPEC LIST */
+  .spec-table{border-top:2px solid var(--ink);}
+  .spec-row{
+    display:grid;
+    grid-template-columns:40px 1fr 140px;
+    gap:var(--sp-3);
+    align-items:center;
+    padding:16px 4px;
+    border-bottom:1px solid var(--gray-300);
+  }
+  .spec-row:hover{background:rgba(255,106,26,0.08);}
+  .spec-index{font-family:monospace;font-size:12px;color:var(--gray-600);}
+  .spec-name{font-family:'Unbounded',sans-serif;font-weight:700;font-size:15px;}
+  .spec-meta{font-size:13px;color:var(--gray-600);}
+  .spec-value{font-family:monospace;font-size:14px;color:var(--ink);text-align:right;}
+
+  /* MEDIA + TEXT */
+  .media-text{display:grid;grid-template-columns:5fr 7fr;gap:var(--sp-5);align-items:center;margin-bottom:var(--sp-5);}
+  .media-text.reverse{grid-template-columns:7fr 5fr;}
+  .media-text.reverse .media{order:2;}
+  .media-text .media{
+    background:var(--gradient);
+    aspect-ratio:4/3;
+  }
+  .media-text .tag{
+    display:inline-block;
+    font-family:monospace;
+    font-size:12px;
+    color:var(--orange-dark);
+    text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  .media-text h4{font-family:'Unbounded',sans-serif;font-size:24px;margin:0 0 12px;}
+  .media-text p{font-size:15px;color:var(--gray-600);line-height:1.6;margin:0;}
+
+  /* LISTS */
+  .num-list{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink);}
+  .num-list li{display:flex;gap:20px;padding:16px 4px;border-bottom:1px solid var(--gray-300);align-items:baseline;}
+  .num-list .n{font-family:'Unbounded',sans-serif;font-weight:900;font-size:18px;color:var(--orange);width:32px;flex-shrink:0;}
+  .num-list .t{font-size:15px;}
+
+  .check-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
+  .check-list li{display:flex;gap:12px;align-items:flex-start;font-size:15px;}
+  .check-mark{width:20px;height:20px;background:var(--ink);flex-shrink:0;position:relative;margin-top:2px;}
+  .check-mark::after{content:'';position:absolute;left:6px;top:2px;width:6px;height:11px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);}
+
+  /* SELECT + CHECKBOX */
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-5);align-items:start;}
+
+  /* custom select — a native <select>'s open dropdown list is drawn by the OS/browser
+     and can't be restyled, so the interactive listbox itself is markup we own */
+  .custom-select{position:relative;}
+  .cs-trigger{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    border:2px solid var(--ink);
+    background:var(--paper-raise);
+    padding:14px;
+    font-family:'Inter',sans-serif;
+    font-size:15px;
+    text-align:left;
+    border-radius:var(--radius);
+    cursor:pointer;
+  }
+  .cs-arrow{
+    width:9px;height:9px;flex-shrink:0;
+    border:solid var(--ink);
+    border-width:0 2px 2px 0;
+    transform:rotate(45deg);
+    transition:transform .15s ease;
+  }
+  .custom-select.open .cs-arrow{transform:rotate(-135deg);}
+  .cs-panel{
+    position:absolute;
+    top:calc(100% + 6px);
+    left:0; right:0;
+    background:var(--paper-raise);
+    /*border:2px solid var(--ink);*/
+    box-shadow:var(--shadow-sm);
+    z-index:20;
+    display:none;
+    max-height:220px;
+    overflow-y:auto;
+  }
+  .custom-select.open .cs-panel{display:block;}
+  .cs-option{
+    padding:12px 14px;
+    font-size:14px;
+    cursor:pointer;
+    border-bottom:1px solid var(--gray-300);
+  }
+  .cs-option:last-child{border-bottom:none;}
+  .cs-option:hover{background:var(--paper);}
+  .cs-option.is-selected{background:var(--orange);color:#fff;font-weight:600;}
+
+  .checkbox-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  .checkbox-row input[type=checkbox]{
+    appearance:none;
+    -webkit-appearance:none;
+    width:19px;height:19px;
+    border:none;
+    background:var(--paper-raise);
+    cursor:pointer;
+    position:relative;
+    flex-shrink:0;
+    border-radius:var(--radius);
+    outline:none;
+    box-shadow: inset 0 0 0 2px var(--ink), var(--shadow-sm);
+  }
+  .checkbox-row input[type=checkbox]:checked{background:var(--gradient);box-shadow:var(--shadow-sm);}
+  .checkbox-row input[type=checkbox]:focus-visible{outline:2px solid var(--orange-dark);outline-offset:2px;}
+  .checkbox-row input[type=checkbox]:checked::after{
+    content:'';
+    position:absolute;
+    left:7px; top:1px;
+    width:5px;height:10px;
+    border:solid #fff;
+    border-width:0 2px 2px 0;
+    transform:rotate(45deg);
+  }
+  .checkbox-row label{font-size:14px;}
+
+  /* ROUND — radio buttons, same visual language as checkboxes but circular */
+  .radio-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  .radio-row input[type=radio]{
+    appearance:none;
+    -webkit-appearance:none;
+    width:22px;height:22px;
+    border:none;
+    border-radius:50%;
+    background:var(--paper-raise);
+    cursor:pointer;
+    position:relative;
+    flex-shrink:0;
+    outline:none;
+    box-shadow: inset 0 0 0 2px var(--ink), var(--shadow-sm);
+  }
+  .radio-row input[type=radio]:checked{background:var(--gradient);box-shadow:var(--shadow-sm);}
+  .radio-row input[type=radio]:focus-visible{outline:2px solid var(--orange-dark);outline-offset:2px;}
+  .radio-row input[type=radio]:checked::after{
+    content:'';
+    position:absolute;
+    left:50%; top:50%;
+    width:5px;height:5px;
+    background:#fff;
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+  }
+  .radio-row label{font-size:14px;}
+
+  /* NOTCH RHYTHM — exact proportion of the cut inside "А" (~4.4:1, elongated bar) */
+  .notch-strip{
+    height:10px;
+    background-image:repeating-linear-gradient(90deg, var(--orange) 0 44px, transparent 44px 70px);
+  }
+  .notch-strip.on-dark{
+    background-image:repeating-linear-gradient(90deg, rgba(255,255,255,.85) 0 44px, transparent 44px 70px);
+    opacity:.6;
+  }
+
+  /* BLUEPRINT — hairline construction marks, no fills, no outlines on content */
+  .blueprint-rule{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:var(--gray-600);
+    font-family:monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+  }
+  .blueprint-rule::before, .blueprint-rule::after{
+    content:'';
+    flex:1;
+    height:1px;
+    background:repeating-linear-gradient(90deg, currentColor 0 4px, transparent 4px 9px);
+    opacity:.4;
+  }
+  .bp-corner{position:absolute;width:30px;height:30px;opacity:.55;}
+  .bp-corner.tl{top:26px;left:26px;border-top:1px solid currentColor;border-left:1px solid currentColor;}
+  .bp-corner.tr{top:26px;right:26px;border-top:1px solid currentColor;border-right:1px solid currentColor;}
+  .bp-corner.bl{bottom:26px;left:26px;border-bottom:1px solid currentColor;border-left:1px solid currentColor;}
+  .bp-corner.br{bottom:26px;right:26px;border-bottom:1px solid currentColor;border-right:1px solid currentColor;}
+  .bp-label{
+    position:absolute;
+    font-family:monospace;
+    font-size:11px;
+    letter-spacing:.05em;
+    opacity:.55;
+  }
+
+  /* FULL-BLEED HERO — breaks out of the content column to fill the viewport width */
+  .fullbleed{
+    width:100vw;
+    margin-left:calc(50% - 50vw);
+    margin-right:calc(50% - 50vw);
+    position:relative;
+    min-height:88vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    color:var(--ink);
+  }
+  .fullbleed-a{
+    background:
+      radial-gradient(120% 90% at 15% 12%, var(--orange-light) 0%, var(--orange) 32%, var(--paper) 70%);
+  }
+  .fullbleed-b{
+    background:var(--ink);
+    color:#fff;
+  }
+  .fb-shape{
+    position:absolute;
+    border-radius:0;
+  }
+  .fullbleed-a .fb-shape{
+    width:46vw; height:46vw; max-width:640px; max-height:640px;
+    right:-10vw; bottom:-14vw;
+    background:var(--ink);
+    clip-path:polygon(0 0, 100% 0, 100% 100%, 40% 100%, 40% 70%, 0 70%);
+    opacity:.92;
+  }
+  .fullbleed-b .fb-shape{
+    width:60vw; height:60vw; max-width:780px; max-height:780px;
+    left:-16vw; top:-16vw;
+    background:linear-gradient(135deg, var(--orange-dark), var(--orange));
+    clip-path:polygon(0 0, 100% 0, 100% 55%, 55% 55%, 55% 100%, 0 100%);
+    opacity:.9;
+  }
+  .fb-content{position:relative;z-index:2;text-align:center;max-width:770px;padding:0 32px;}
+  .fb-content .t-eyebrow{display:inline-block;margin-bottom:18px;}
+  .fb-content h2{
+    font-family:'Unbounded',sans-serif;
+    font-weight:900;
+    font-size:clamp(40px,6.4vw,84px);
+    text-transform:uppercase;
+    line-height:0.94;
+    letter-spacing:-0.01em;
+    margin:0 0 24px;
+  }
+  .fullbleed-b .fb-content h2{color:#fff;}
+  .fb-content p{font-size:16px;margin:0 auto 32px;max-width:440px;}
+  .fullbleed-a .fb-content p{color:var(--ink);opacity:.75;}
+  .fullbleed-b .fb-content p{color:#B8B3AB;}
+  .fb-corner-strip{position:absolute;left:0;right:0;bottom:0;}
+
+  /* PHOTO-THROUGH-LOGO — real logo path used as an SVG clip, photo/gradient inside */
+  .photo-mask-block{
+    background:var(--gradient);
+    padding:var(--sp-6) var(--sp-4);
+    position:relative;
+  }
+  .photo-mask-block2{
+    background:var(--gray-300);
+    padding:var(--sp-6) var(--sp-4);
+    position:relative;
+  }
+  .photo-mask-block svg{width:100%;height:auto;display:block;}
+  .photo-mask-caption{
+    color:rgba(255,255,255,0.85);
+    font-family:monospace;
+    font-size:12px;
+    margin-top:var(--sp-3);
+    text-align:center;
+  }
+  .photo-mask-caption2{
+    color: var(--gray-600);
+    font-family:monospace;
+    font-size:12px;
+    margin-top:var(--sp-3);
+    text-align:center;
+  }
+
+  /* WATERMARK — compact content block, logo mark bleeding off the edges behind it */
+  .watermark-block{
+    position:relative;
+    overflow:hidden;
+    min-height:380px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:var(--sp-5);
+    background:var(--paper-raise);
+    border:2px solid var(--ink);
+    box-shadow:var(--shadow);
+  }
+  .watermark-mark{
+    position:absolute;
+    display:block;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:330%;
+    height:auto;
+    color:var(--paper);
+    pointer-events:none;
+    user-select:none;
+    z-index:0;
+  }
+  .watermark-block-content{position:relative;z-index:1;max-width:440px;}
+  .watermark-block-content .t-eyebrow{display:block;margin-bottom:14px;}
+  .watermark-block-content h3{margin:0 0 14px;}
+  .watermark-block-content p{margin:0 0 28px;color:var(--gray-600);}
+
+  /* PARALLAX — logo-shaped window, background layer shifts with scroll */
+  .parallax-window{
+    position:relative;
+    height:70vh;
+    min-height:380px;
+    overflow:hidden;
+  }
+  .parallax-window svg{width:100%;height:100%;display:block;}
+  .parallax-caption{
+    color:var(--gray-600);
+    font-family:monospace;
+    font-size:12px;
+    margin-top:var(--sp-3);
+    text-align:center;
+  }
+
+  /* LOGO MOTION — tetris assembly */
+  .logo-demo{
+    background:var(--paper-raise);
+    border:2px solid var(--ink);
+    box-shadow:var(--shadow);
+    padding:var(--sp-6) var(--sp-4);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:var(--sp-4);
+  }
+  .logo-stage{
+    position:relative;
+    width:100%;
+    max-width:560px;
+    height:220px;
+  }
+  .tile{
+    position:absolute;
+    width:110px;
+    height:90px;
+    background:var(--gradient);
+    color:#fff;
+    font-family:'Unbounded',sans-serif;
+    font-weight:900;
+    font-size:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    top:0; left:0;
+    transition: transform 700ms cubic-bezier(.65,0,.35,1);
+  }
+  .bracket{
+    position:absolute;
+    background:var(--ink);
+    height:22px;
+    top:0; left:0;
+    transition: transform 700ms cubic-bezier(.65,0,.35,1), width 700ms cubic-bezier(.65,0,.35,1);
+  }
+
+  /* square (start) positions: col1 = Б/А, col2 = З/А, adjacent, bracket spans both */
+  .square .b{transform:translate(40px,10px);}
+  .square .a1{transform:translate(40px,110px);}
+  .square .z{transform:translate(160px,10px);}
+  .square .a2{transform:translate(160px,110px);}
+  .square .bracket{transform:translate(40px,196px); width:230px;}
+
+  /* phase 1: left leg (under б/а) stays put; right leg stretches right, dragging з/а column with it */
+  .p1 .z{transform:translate(370px,10px);}
+  .p1 .a2{transform:translate(370px,110px);}
+  .p1 .bracket{transform:translate(40px,196px); width:440px;}
+
+  /* phase 2: б and з slide off their а's — left and down — into final row; bracket stretches to underline А-З-А */
+  .p2 .b{transform:translate(10px,60px);}
+  .p2 .a1{transform:translate(130px,60px);}
+  .p2 .z{transform:translate(250px,60px);}
+  .p2 .a2{transform:translate(370px,60px);}
+  .p2 .bracket{transform:translate(130px,150px); width:350px;}
+
+  .logo-caption{font-family:monospace;font-size:12px;color:var(--gray-600);text-align:center;}
+
+  /* INTRO — real logo mark morphs from square to horizontal lockup on scroll, then docks into a fixed header */
+  .intro-hero{
+    position:relative;
+    min-height:100vh;
+    background:var(--paper);
+  }
+  .logo-dock{
+    position:fixed;
+    left:50%;
+    top:50vh;
+    width:820px;
+    transform:translate(-50%,-50%);
+    z-index:200;
+    pointer-events:none;
+  }
+  .logo-dock svg{width:100%;height:auto;display:block;}
+
+  .rl-letter{fill:url(#logoGradSquare);transition:transform 700ms cubic-bezier(.65,0,.35,1), fill 0s linear 650ms;}
+  .p2 .rl-letter{fill:url(#logoGradHor);}
+  .p1 .rl-z, .p1 .rl-a2{transform:translate(180px,0);}
+  .p2 .rl-b{transform:translate(-219.1px,147.535px);}
+  .p2 .rl-a1{transform:translate(-6.504px,-65.063px);}
+  .p2 .rl-z{transform:translate(-6.502px,147.535px);}
+  .p2 .rl-a2{transform:translate(206.099px,-65.063px);}
+
+  .rl-bracket{fill:var(--ink);transition:opacity 500ms ease;}
+  .rl-bracket.bracket-square{opacity:1;}
+  .rl-bracket.bracket-hor{opacity:0;}
+  .p1 .bracket-square{opacity:.35;}
+  .p1 .bracket-hor{opacity:.5;}
+  .p2 .bracket-square{opacity:0;}
+  .p2 .bracket-hor{opacity:1;}
+
+  .rl-tagline{fill:var(--ink);transition:opacity 300ms linear;}
+
+  .site-header-bar{
+    position:fixed;
+    top:0; left:0; right:0;
+    height:100px;
+    background:var(--paper);
+    border-bottom:2px solid var(--ink);
+    box-shadow:var(--shadow-sm);
+    z-index:150;
+    opacity:0;
+    pointer-events:none;
+  }
+
+  .replay-btn{
+    font-family:'Unbounded',sans-serif;
+    font-weight:700;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    background:var(--ink);
+    color:#fff;
+    border:none;
+    padding:10px 18px;
+    cursor:pointer;
+    border-radius:var(--radius);
+  }
+</style>
+</head>
+<body>
+
+<div class="site-header-bar" id="siteHeaderBar"></div>
+
+<div class="intro-hero">
+  <div class="logo-dock" id="introLogoDock">
+    <svg viewBox="190 280 910 700" id="introLogoSvg">
+      <defs>
+        <linearGradient id="logoGradSquare" x1="447.46224" y1="322.69606" x2="850.94173" y2="726.17555" gradientUnits="userSpaceOnUse">
+          <stop offset=".17878" stop-color="#dc410f"/>
+          <stop offset=".5" stop-color="#fe7e42"/>
+          <stop offset=".85008" stop-color="#dc410f"/>
+        </linearGradient>
+        <linearGradient id="logoGradHor" x1="387.81082" y1="310.78228" x2="897.5906" y2="820.56207" gradientUnits="userSpaceOnUse">
+          <stop offset=".17878" stop-color="#dc410f"/>
+          <stop offset=".5" stop-color="#fe7e42"/>
+          <stop offset=".85008" stop-color="#dc410f"/>
+        </linearGradient>
+      </defs>
+      <polygon class="rl-bracket bracket-square" points="567.47786 677.02663 518.32845 677.02663 518.32845 797.04274 780.07649 797.04274 780.07649 677.02663 730.9261 677.02663 730.9261 747.89284 567.47786 747.89284 567.47786 677.02663"/>
+      <polygon class="rl-bracket bracket-hor" points="937.02459 611.96359 937.02459 682.8298 560.97381 682.8298 560.97381 611.96359 511.8244 611.96359 511.8244 731.97922 986.17498 731.97922 986.17498 611.96359 937.02459 611.96359"/>
+      <path class="rl-letter rl-b" d="M496.61165,371.84596h141.73242v-49.1499h-190.88184v190.88184h190.88184v-120.01562h-141.73242v-21.71631ZM589.19466,442.71169v21.7168h-92.58301v-21.7168h92.58301Z"/>
+      <path class="rl-letter rl-a1" d="M589.19466,726.17653h49.14941v-190.88184h-190.88184v190.88184h49.14941v-70.86621h92.58301v70.86621ZM496.61165,606.1609v-21.71631h92.58301v21.71631h-92.58301Z"/>
+      <path class="rl-letter rl-z" d="M660.06087,322.69606h190.88184v190.88184h-190.88184v-49.14941h141.73145v-21.7168h-141.73145v-49.14941h141.73145v-21.71631h-141.73145v-49.1499Z"/>
+      <path class="rl-letter rl-a2" d="M660.05892,726.17653h49.15039v-70.86621h92.58203v70.86621h49.14941v-190.88184h-190.88184v190.88184ZM709.20931,584.4446h92.58203v21.71631h-92.58203v-21.71631Z"/>
+      <path class="rl-tagline" id="introTaglinePath" d="M482.02571,830.16909v19.97803h-3.2793v-14.58789l-7.46387,12.32617h-1.58301l-7.38867-12.36377v14.62549h-3.31641v-19.97803h3.73145l7.84082,13.49463,8.06641-13.49463h3.39258ZM506.55696,841.3644h-16.20898c.22559,1.75928.99902,3.17285,2.31836,4.24072,1.31934,1.06836,2.95898,1.60205,4.91895,1.60205,2.38672,0,4.30957-.8042,5.76758-2.4126l1.99707,2.33691c-.9043,1.05566-2.0293,1.86035-3.37305,2.4126-1.34473.55322-2.8457.8291-4.50488.8291-2.11035,0-3.9834-.43311-5.61621-1.30029-1.63379-.8667-2.89648-2.0791-3.78809-3.6377-.89258-1.55762-1.33887-3.31689-1.33887-5.27686,0-1.93506.43359-3.68115,1.30078-5.23975.86719-1.55762,2.06055-2.77051,3.58105-3.6377,1.52051-.8667,3.23535-1.30029,5.14551-1.30029,1.90918,0,3.6123.43359,5.10742,1.30029,1.49512.86719,2.66309,2.08008,3.50586,3.6377.8418,1.55859,1.2627,3.34229,1.2627,5.35254,0,.27686-.02539.64111-.0752,1.09326ZM492.40267,834.61684c-1.16895,1.05566-1.85352,2.43799-2.05469,4.14648h12.81641c-.20215-1.68311-.88574-3.05908-2.05469-4.12744-1.16895-1.06787-2.62012-1.60205-4.35352-1.60205-1.73438,0-3.18555.52783-4.35352,1.58301ZM532.19661,846.9811v7.80273h-3.39258v-4.63672h-16.69922v4.63672h-3.42969v-7.80273h1.05566c1.28125-.07568,2.16016-.98047,2.63867-2.71436.47656-1.73389.80371-4.18408.97949-7.3501l.30176-6.74756h15.49219v16.81201h3.05371ZM516.04427,843.4186c-.31445,1.64648-.88574,2.8335-1.71484,3.5625h11.19531v-13.64551h-8.66992l-.18848,3.84473c-.10059,2.51318-.30859,4.59277-.62207,6.23828ZM536.26692,830.16909h3.61816v14.55029l12.25098-14.55029h3.2793v19.97803h-3.61816v-14.5498l-12.21387,14.5498h-3.31641v-19.97803ZM575.32942,832.01626c1.46973,1.35693,2.20508,3.37988,2.20508,6.06885v12.06201h-3.43066v-2.63867c-.60254.93018-1.46387,1.63965-2.58203,2.12988s-2.44336.73486-3.97656.73486c-2.23633,0-4.02734-.54004-5.37109-1.62061-1.34473-1.08008-2.0166-2.50049-2.0166-4.25977,0-1.7583.64062-3.17188,1.92188-4.24023,1.28223-1.06787,3.31738-1.60205,6.10645-1.60205h5.72949v-.71631c0-1.55811-.45215-2.75195-1.35645-3.58105s-2.2373-1.24365-3.99609-1.24365c-1.18066,0-2.33691.19482-3.46777.58398-1.13086.39014-2.08594.91113-2.86426,1.56445l-1.50781-2.71387c1.03027-.82959,2.26172-1.46387,3.69336-1.90381,1.43262-.43945,2.95312-.65967,4.56152-.65967,2.76367,0,4.88184.67871,6.35156,2.03564ZM571.72982,846.6603c1.00488-.61523,1.7334-1.48877,2.18555-2.61963v-2.78955h-5.57812c-3.06641,0-4.59863,1.03076-4.59863,3.09131,0,1.00537.38867,1.79688,1.16797,2.37451.7793.57861,1.85938.86719,3.24219.86719,1.38184,0,2.5752-.30762,3.58105-.92383ZM582.6263,838.23598h10.13965v3.12842h-10.13965v-3.12842ZM611.53743,832.01626c1.46973,1.35693,2.20508,3.37988,2.20508,6.06885v12.06201h-3.43066v-2.63867c-.60254.93018-1.46387,1.63965-2.58203,2.12988s-2.44336.73486-3.97656.73486c-2.23633,0-4.02734-.54004-5.37109-1.62061-1.34473-1.08008-2.0166-2.50049-2.0166-4.25977,0-1.7583.64062-3.17188,1.92188-4.24023,1.28223-1.06787,3.31738-1.60205,6.10645-1.60205h5.72949v-.71631c0-1.55811-.45215-2.75195-1.35645-3.58105s-2.2373-1.24365-3.99609-1.24365c-1.18066,0-2.33691.19482-3.46777.58398-1.13086.39014-2.08594.91113-2.86426,1.56445l-1.50781-2.71387c1.03027-.82959,2.26172-1.46387,3.69336-1.90381,1.43262-.43945,2.95312-.65967,4.56152-.65967,2.76367,0,4.88184.67871,6.35156,2.03564ZM607.93782,846.6603c1.00488-.61523,1.7334-1.48877,2.18555-2.61963v-2.78955h-5.57812c-3.06641,0-4.59863,1.03076-4.59863,3.09131,0,1.00537.38867,1.79688,1.16797,2.37451.7793.57861,1.85938.86719,3.24219.86719,1.38184,0,2.5752-.30762,3.58105-.92383ZM627.32357,841.70376h-4.14648v8.44336h-3.61816v-19.97803h3.61816v8.44385h4.22168l6.4834-8.44385h3.88281l-7.57617,9.6123,8.10449,10.36572h-4.25977l-6.70996-8.44336ZM644.28255,849.05386c-1.59668-.87891-2.84668-2.0918-3.75098-3.63721s-1.35742-3.29834-1.35742-5.2583c0-1.96045.45312-3.71289,1.35742-5.25879.9043-1.54541,2.1543-2.75146,3.75098-3.61865,1.59473-.8667,3.41113-1.30029,5.44629-1.30029,1.80957,0,3.42383.36475,4.84375,1.09326,1.41992.729,2.51953,1.78467,3.29883,3.16602l-2.75195,1.77197c-.62891-.95459-1.4082-1.6709-2.33691-2.14844-.93066-.47754-1.95996-.71631-3.09082-.71631-1.30762,0-2.48242.28906-3.52441.8667-1.04395.57861-1.86035,1.40137-2.4502,2.46924-.59082,1.06836-.88672,2.29346-.88672,3.67529,0,1.40771.2959,2.64502.88672,3.71289.58984,1.06836,1.40625,1.89111,2.4502,2.46875,1.04199.57861,2.2168.86719,3.52441.86719,1.13086,0,2.16016-.23877,3.09082-.71631.92871-.47705,1.70801-1.19336,2.33691-2.14844l2.75195,1.73389c-.7793,1.38232-1.87891,2.44434-3.29883,3.18506-1.41992.7417-3.03418,1.11182-4.84375,1.11182-2.03516,0-3.85156-.43896-5.44629-1.31934ZM679.92708,841.3644h-16.20898c.22559,1.75928.99902,3.17285,2.31836,4.24072,1.31934,1.06836,2.95898,1.60205,4.91895,1.60205,2.38672,0,4.30957-.8042,5.76758-2.4126l1.99707,2.33691c-.9043,1.05566-2.0293,1.86035-3.37305,2.4126-1.34473.55322-2.8457.8291-4.50488.8291-2.11035,0-3.9834-.43311-5.61621-1.30029-1.63379-.8667-2.89648-2.0791-3.78809-3.6377-.89258-1.55762-1.33887-3.31689-1.33887-5.27686,0-1.93506.43359-3.68115,1.30078-5.23975.86719-1.55762,2.06055-2.77051,3.58105-3.6377,1.52051-.8667,3.23535-1.30029,5.14551-1.30029,1.90918,0,3.6123.43359,5.10742,1.30029,1.49512.86719,2.66309,2.08008,3.50586,3.6377.8418,1.55859,1.2627,3.34229,1.2627,5.35254,0,.27686-.02539.64111-.0752,1.09326ZM665.77278,834.61684c-1.16895,1.05566-1.85352,2.43799-2.05469,4.14648h12.81641c-.20215-1.68311-.88574-3.05908-2.05469-4.12744-1.16895-1.06787-2.62012-1.60205-4.35352-1.60205-1.73438,0-3.18555.52783-4.35352,1.58301ZM702.36165,830.16909v19.97803h-3.61816v-16.81152h-8.59473l-.22559,4.44775c-.12598,2.68945-.36523,4.93213-.7168,6.72852-.35156,1.79688-.92969,3.23584-1.7334,4.31592-.80469,1.08105-1.92285,1.62109-3.35547,1.62109-.65332,0-1.39453-.11328-2.22363-.33936l.22656-3.05322c.32617.0752.62793.11328.9043.11328,1.00488,0,1.75879-.43945,2.26172-1.31934.50195-.87939.8291-1.92236.98047-3.12891.15039-1.20605.28809-2.92725.41406-5.16406l.33887-7.38818h15.3418ZM726.81087,841.3644h-16.20898c.22559,1.75928.99902,3.17285,2.31836,4.24072,1.31934,1.06836,2.95898,1.60205,4.91895,1.60205,2.38672,0,4.30957-.8042,5.76758-2.4126l1.99707,2.33691c-.9043,1.05566-2.0293,1.86035-3.37305,2.4126-1.34473.55322-2.8457.8291-4.50488.8291-2.11035,0-3.9834-.43311-5.61621-1.30029-1.63379-.8667-2.89648-2.0791-3.78809-3.6377-.89258-1.55762-1.33887-3.31689-1.33887-5.27686,0-1.93506.43359-3.68115,1.30078-5.23975.86719-1.55762,2.06055-2.77051,3.58105-3.6377,1.52051-.8667,3.23535-1.30029,5.14551-1.30029,1.90918,0,3.6123.43359,5.10742,1.30029,1.49512.86719,2.66309,2.08008,3.50586,3.6377.8418,1.55859,1.2627,3.34229,1.2627,5.35254,0,.27686-.02539.64111-.0752,1.09326ZM712.65657,834.61684c-1.16895,1.05566-1.85352,2.43799-2.05469,4.14648h12.81641c-.20215-1.68311-.88574-3.05908-2.05469-4.12744-1.16895-1.06787-2.62012-1.60205-4.35352-1.60205-1.73438,0-3.18555.52783-4.35352,1.58301ZM747.42513,831.26235c1.53223.85449,2.73242,2.04834,3.59961,3.58105s1.30078,3.30469,1.30078,5.31494c0,2.01074-.43359,3.78809-1.30078,5.3335s-2.06738,2.74609-3.59961,3.6001c-1.5332.85449-3.26758,1.28125-5.20215,1.28125-1.43262,0-2.74609-.27588-3.93945-.8291-1.19336-.55225-2.20508-1.35693-3.03418-2.4126v10.32861h-3.61816v-27.29102h3.46777v3.1665c.80371-1.10547,1.82129-1.94141,3.05273-2.50684s2.58789-.84814,4.07129-.84814c1.93457,0,3.66895.42773,5.20215,1.28174ZM745.37044,846.32143c1.01758-.59033,1.82227-1.41943,2.41309-2.48779.58984-1.06787.88574-2.29297.88574-3.67529,0-1.38184-.2959-2.60693-.88574-3.67529-.59082-1.06787-1.39551-1.89062-2.41309-2.46924-1.01758-.57764-2.16699-.8667-3.44922-.8667-1.25684,0-2.39355.29541-3.41113.88574-1.01758.59082-1.82227,1.41357-2.41211,2.46875-.59082,1.05566-.88574,2.2749-.88574,3.65674,0,1.38232.28809,2.60742.86621,3.67529.57812,1.06836,1.38184,1.89746,2.41309,2.48779,1.03027.59033,2.17285.88574,3.42969.88574,1.28223,0,2.43164-.29541,3.44922-.88574ZM770.57259,832.01626c1.46973,1.35693,2.20508,3.37988,2.20508,6.06885v12.06201h-3.43066v-2.63867c-.60254.93018-1.46387,1.63965-2.58203,2.12988s-2.44336.73486-3.97656.73486c-2.23633,0-4.02734-.54004-5.37109-1.62061-1.34473-1.08008-2.0166-2.50049-2.0166-4.25977,0-1.7583.64062-3.17188,1.92188-4.24023,1.28223-1.06787,3.31738-1.60205,6.10645-1.60205h5.72949v-.71631c0-1.55811-.45215-2.75195-1.35645-3.58105s-2.2373-1.24365-3.99609-1.24365c-1.18066,0-2.33691.19482-3.46777.58398-1.13086.39014-2.08594.91113-2.86426,1.56445l-1.50781-2.71387c1.03027-.82959,2.26172-1.46387,3.69336-1.90381,1.43262-.43945,2.95312-.65967,4.56152-.65967,2.76367,0,4.88184.67871,6.35156,2.03564ZM766.97298,846.6603c1.00488-.61523,1.7334-1.48877,2.18555-2.61963v-2.78955h-5.57812c-3.06641,0-4.59863,1.03076-4.59863,3.09131,0,1.00537.38867,1.79688,1.16797,2.37451.7793.57861,1.85938.86719,3.24219.86719,1.38184,0,2.5752-.30762,3.58105-.92383ZM793.66341,833.33559h-7.3125v16.81152h-3.61816v-16.81152h-7.31348v-3.1665h18.24414v3.1665ZM800.13216,849.05386c-1.58398-.87891-2.82129-2.0918-3.71289-3.63721-.89258-1.54541-1.33887-3.29834-1.33887-5.2583,0-1.96045.44629-3.71289,1.33887-5.25879.8916-1.54541,2.12891-2.75146,3.71289-3.61865,1.58301-.8667,3.36719-1.30029,5.35254-1.30029,1.98438,0,3.7627.43359,5.33398,1.30029,1.56934.86719,2.80176,2.07324,3.69336,3.61865.8916,1.5459,1.33887,3.29834,1.33887,5.25879,0,1.95996-.44727,3.71289-1.33887,5.2583s-2.12402,2.7583-3.69336,3.63721c-1.57129.88037-3.34961,1.31934-5.33398,1.31934-1.98535,0-3.76953-.43896-5.35254-1.31934ZM808.93392,846.32143c1.01758-.59033,1.81445-1.41943,2.39355-2.48779.57715-1.06787.86621-2.29297.86621-3.67529,0-1.38184-.28906-2.60693-.86621-3.67529-.5791-1.06787-1.37598-1.89062-2.39355-2.46924-1.01855-.57764-2.16797-.8667-3.44922-.8667-1.28223,0-2.43164.28906-3.44922.8667-1.01758.57861-1.82227,1.40137-2.41211,2.46924-.59082,1.06836-.88672,2.29346-.88672,3.67529,0,1.38232.2959,2.60742.88672,3.67529.58984,1.06836,1.39453,1.89746,2.41211,2.48779s2.16699.88574,3.44922.88574c1.28125,0,2.43066-.29541,3.44922-.88574ZM836.28157,831.26235c1.53223.85449,2.73242,2.04834,3.59961,3.58105s1.30078,3.30469,1.30078,5.31494c0,2.01074-.43359,3.78809-1.30078,5.3335s-2.06738,2.74609-3.59961,3.6001c-1.5332.85449-3.26758,1.28125-5.20215,1.28125-1.43262,0-2.74609-.27588-3.93945-.8291-1.19336-.55225-2.20508-1.35693-3.03418-2.4126v10.32861h-3.61816v-27.29102h3.46777v3.1665c.80371-1.10547,1.82129-1.94141,3.05273-2.50684s2.58789-.84814,4.07129-.84814c1.93457,0,3.66895.42773,5.20215,1.28174ZM834.22689,846.32143c1.01758-.59033,1.82227-1.41943,2.41309-2.48779.58984-1.06787.88574-2.29297.88574-3.67529,0-1.38184-.2959-2.60693-.88574-3.67529-.59082-1.06787-1.39551-1.89062-2.41309-2.46924-1.01758-.57764-2.16699-.8667-3.44922-.8667-1.25684,0-2.39355.29541-3.41113.88574-1.01758.59082-1.82227,1.41357-2.41211,2.46875-.59082,1.05566-.88574,2.2749-.88574,3.65674,0,1.38232.28809,2.60742.86621,3.67529.57812,1.06836,1.38184,1.89746,2.41309,2.48779,1.03027.59033,2.17285.88574,3.42969.88574,1.28223,0,2.43164-.29541,3.44922-.88574ZM494.96907,863.6271v19.97803h-3.2793v-14.58789l-7.46387,12.32617h-1.58301l-7.38867-12.36377v14.62549h-3.31641v-19.97803h3.73145l7.84082,13.49463,8.06641-13.49463h3.39258ZM504.72396,882.51186c-1.58398-.87891-2.82129-2.0918-3.71289-3.63721-.89258-1.54541-1.33887-3.29834-1.33887-5.2583,0-1.96045.44629-3.71289,1.33887-5.25879.8916-1.54541,2.12891-2.75146,3.71289-3.61865,1.58301-.8667,3.36719-1.30029,5.35254-1.30029,1.98438,0,3.7627.43359,5.33398,1.30029,1.56934.86719,2.80176,2.07324,3.69336,3.61865.8916,1.5459,1.33887,3.29834,1.33887,5.25879,0,1.95996-.44727,3.71289-1.33887,5.2583s-2.12402,2.7583-3.69336,3.63721c-1.57129.88037-3.34961,1.31934-5.33398,1.31934-1.98535,0-3.76953-.43896-5.35254-1.31934ZM513.52571,879.77944c1.01758-.59033,1.81445-1.41943,2.39355-2.48779.57715-1.06787.86621-2.29297.86621-3.67529,0-1.38184-.28906-2.60693-.86621-3.67529-.5791-1.06787-1.37598-1.89062-2.39355-2.46924-1.01855-.57764-2.16797-.8667-3.44922-.8667-1.28223,0-2.43164.28906-3.44922.8667-1.01758.57861-1.82227,1.40137-2.41211,2.46924-.59082,1.06836-.88672,2.29346-.88672,3.67529,0,1.38232.2959,2.60742.88672,3.67529.58984,1.06836,1.39453,1.89746,2.41211,2.48779s2.16699.88574,3.44922.88574c1.28125,0,2.43066-.29541,3.44922-.88574ZM542.24837,863.6271v19.97803h-3.61816v-16.81152h-8.59473l-.22559,4.44775c-.12598,2.68945-.36523,4.93213-.7168,6.72852-.35156,1.79688-.92969,3.23584-1.7334,4.31592-.80469,1.08105-1.92285,1.62109-3.35547,1.62109-.65332,0-1.39453-.11328-2.22363-.33936l.22656-3.05322c.32617.0752.62793.11328.9043.11328,1.00488,0,1.75879-.43945,2.26172-1.31934.50195-.87939.8291-1.92236.98047-3.12891.15039-1.20605.28809-2.92725.41406-5.16406l.33887-7.38818h15.3418ZM551.92122,882.51186c-1.58398-.87891-2.82129-2.0918-3.71289-3.63721-.89258-1.54541-1.33887-3.29834-1.33887-5.2583,0-1.96045.44629-3.71289,1.33887-5.25879.8916-1.54541,2.12891-2.75146,3.71289-3.61865,1.58301-.8667,3.36719-1.30029,5.35254-1.30029,1.98438,0,3.7627.43359,5.33398,1.30029,1.56934.86719,2.80176,2.07324,3.69336,3.61865.8916,1.5459,1.33887,3.29834,1.33887,5.25879,0,1.95996-.44727,3.71289-1.33887,5.2583s-2.12402,2.7583-3.69336,3.63721c-1.57129.88037-3.34961,1.31934-5.33398,1.31934-1.98535,0-3.76953-.43896-5.35254-1.31934ZM560.72298,879.77944c1.01758-.59033,1.81445-1.41943,2.39355-2.48779.57715-1.06787.86621-2.29297.86621-3.67529,0-1.38184-.28906-2.60693-.86621-3.67529-.5791-1.06787-1.37598-1.89062-2.39355-2.46924-1.01855-.57764-2.16797-.8667-3.44922-.8667-1.28223,0-2.43164.28906-3.44922.8667-1.01758.57861-1.82227,1.40137-2.41211,2.46924-.59082,1.06836-.88672,2.29346-.88672,3.67529,0,1.38232.2959,2.60742.88672,3.67529.58984,1.06836,1.39453,1.89746,2.41211,2.48779s2.16699.88574,3.44922.88574c1.28125,0,2.43066-.29541,3.44922-.88574ZM592.65364,880.43911v7.80273h-3.39258v-4.63672h-16.69922v4.63672h-3.42969v-7.80273h1.05566c1.28125-.07568,2.16016-.98047,2.63867-2.71436.47656-1.73389.80371-4.18408.97949-7.3501l.30176-6.74756h15.49219v16.81201h3.05371ZM576.5013,876.87661c-.31445,1.64648-.88574,2.8335-1.71484,3.5625h11.19531v-13.64551h-8.66992l-.18848,3.84473c-.10059,2.51318-.30859,4.59277-.62207,6.23828ZM611.58333,872.14614c1.33105,1.13086,1.99707,2.72705,1.99707,4.78711,0,2.16162-.72266,3.82617-2.16699,4.99463-1.44531,1.16846-3.51172,1.73975-6.20117,1.71484l-8.40527-.0376v-19.97803h3.61816v6.74756l5.39062.0376c2.5127.02539,4.43457.60303,5.76758,1.73389ZM608.66146,879.91128c.8418-.67871,1.2627-1.68359,1.2627-3.01562,0-1.30615-.41406-2.26172-1.24414-2.86475-.8291-.60303-2.07227-.91699-3.73145-.94238l-4.52344-.07568v7.84082l4.52344.0376c1.63379.02539,2.87109-.30176,3.71289-.97998ZM616.55892,863.6271h3.61816v19.97803h-3.61816v-19.97803ZM639.2347,883.60512l-5.76758-7.65186-5.8418,7.65186h-4.03418l7.87891-10.21533-7.50195-9.7627h4.03418l5.50293,7.19971,5.46582-7.19971h3.95801l-7.53906,9.7627,7.95312,10.21533h-4.1084ZM672.17903,866.7936h-7.3125v16.81152h-3.61816v-16.81152h-7.31348v-3.1665h18.24414v3.1665ZM689.57161,865.47427c1.46973,1.35693,2.20508,3.37988,2.20508,6.06885v12.06201h-3.43066v-2.63867c-.60254.93018-1.46387,1.63965-2.58203,2.12988s-2.44336.73486-3.97656.73486c-2.23633,0-4.02734-.54004-5.37109-1.62061-1.34473-1.08008-2.0166-2.50049-2.0166-4.25977,0-1.7583.64062-3.17188,1.92188-4.24023,1.28223-1.06787,3.31738-1.60205,6.10645-1.60205h5.72949v-.71631c0-1.55811-.45215-2.75195-1.35645-3.58105s-2.2373-1.24365-3.99609-1.24365c-1.18066,0-2.33691.19482-3.46777.58398-1.13086.39014-2.08594.91113-2.86426,1.56445l-1.50781-2.71387c1.03027-.82959,2.26172-1.46387,3.69336-1.90381,1.43262-.43945,2.95312-.65967,4.56152-.65967,2.76367,0,4.88184.67871,6.35156,2.03564ZM685.972,880.11831c1.00488-.61523,1.7334-1.48877,2.18555-2.61963v-2.78955h-5.57812c-3.06641,0-4.59863,1.03076-4.59863,3.09131,0,1.00537.38867,1.79688,1.16797,2.37451.7793.57861,1.85938.86719,3.24219.86719,1.38184,0,2.5752-.30762,3.58105-.92383ZM715.31575,863.6271v19.97803h-3.61816v-16.81152h-8.59473l-.22559,4.44775c-.12598,2.68945-.36523,4.93213-.7168,6.72852-.35156,1.79688-.92969,3.23584-1.7334,4.31592-.80469,1.08105-1.92285,1.62109-3.35547,1.62109-.65332,0-1.39453-.11328-2.22363-.33936l.22656-3.05322c.32617.0752.62793.11328.9043.11328,1.00488,0,1.75879-.43945,2.26172-1.31934.50195-.87939.8291-1.92236.98047-3.12891.15039-1.20605.28809-2.92725.41406-5.16406l.33887-7.38818h15.3418ZM735.24935,865.47427c1.46973,1.35693,2.20508,3.37988,2.20508,6.06885v12.06201h-3.43066v-2.63867c-.60254.93018-1.46387,1.63965-2.58203,2.12988s-2.44336.73486-3.97656.73486c-2.23633,0-4.02734-.54004-5.37109-1.62061-1.34473-1.08008-2.0166-2.50049-2.0166-4.25977,0-1.7583.64062-3.17188,1.92188-4.24023,1.28223-1.06787,3.31738-1.60205,6.10645-1.60205h5.72949v-.71631c0-1.55811-.45215-2.75195-1.35645-3.58105s-2.2373-1.24365-3.99609-1.24365c-1.18066,0-2.33691.19482-3.46777.58398-1.13086.39014-2.08594.91113-2.86426,1.56445l-1.50781-2.71387c1.03027-.82959,2.26172-1.46387,3.69336-1.90381,1.43262-.43945,2.95312-.65967,4.56152-.65967,2.76367,0,4.88184.67871,6.35156,2.03564ZM731.64974,880.11831c1.00488-.61523,1.7334-1.48877,2.18555-2.61963v-2.78955h-5.57812c-3.06641,0-4.59863,1.03076-4.59863,3.09131,0,1.00537.38867,1.79688,1.16797,2.37451.7793.57861,1.85938.86719,3.24219.86719,1.38184,0,2.5752-.30762,3.58105-.92383ZM743.27083,863.6271h3.61816v8.48145h11.38379v-8.48145h3.61914v19.97803h-3.61914v-8.36816h-11.38379v8.36816h-3.61816v-19.97803ZM783.44075,866.7936h-7.3125v16.81152h-3.61816v-16.81152h-7.31348v-3.1665h18.24414v3.1665ZM789.9095,882.51186c-1.58398-.87891-2.82129-2.0918-3.71289-3.63721-.89258-1.54541-1.33887-3.29834-1.33887-5.2583,0-1.96045.44629-3.71289,1.33887-5.25879.8916-1.54541,2.12891-2.75146,3.71289-3.61865,1.58301-.8667,3.36719-1.30029,5.35254-1.30029,1.98438,0,3.7627.43359,5.33398,1.30029,1.56934.86719,2.80176,2.07324,3.69336,3.61865.8916,1.5459,1.33887,3.29834,1.33887,5.25879,0,1.95996-.44727,3.71289-1.33887,5.2583s-2.12402,2.7583-3.69336,3.63721c-1.57129.88037-3.34961,1.31934-5.33398,1.31934-1.98535,0-3.76953-.43896-5.35254-1.31934ZM798.71126,879.77944c1.01758-.59033,1.81445-1.41943,2.39355-2.48779.57715-1.06787.86621-2.29297.86621-3.67529,0-1.38184-.28906-2.60693-.86621-3.67529-.5791-1.06787-1.37598-1.89062-2.39355-2.46924-1.01855-.57764-2.16797-.8667-3.44922-.8667-1.28223,0-2.43164.28906-3.44922.8667-1.01758.57861-1.82227,1.40137-2.41211,2.46924-.59082,1.06836-.88672,2.29346-.88672,3.67529,0,1.38232.2959,2.60742.88672,3.67529.58984,1.06836,1.39453,1.89746,2.41211,2.48779s2.16699.88574,3.44922.88574c1.28125,0,2.43066-.29541,3.44922-.88574ZM827.82259,878.10171c0,1.75928-.66016,3.11621-1.97949,4.07129s-3.28516,1.43213-5.89844,1.43213h-9.6123v-19.97803h9.27246c2.3623,0,4.20898.44629,5.54102,1.33838s1.99805,2.15479,1.99805,3.78809c0,1.05566-.2832,1.9668-.84766,2.73291-.56543.7666-1.35156,1.35107-2.35645,1.75293,2.58789.65381,3.88281,2.27441,3.88281,4.8623ZM813.87532,872.22134h5.42773c1.38184,0,2.43164-.25098,3.14746-.75391.7168-.50244,1.07422-1.23096,1.07422-2.18604,0-1.90967-1.40723-2.86475-4.22168-2.86475h-5.42773v5.80469ZM823.07259,880.09975c.75391-.47705,1.13086-1.21875,1.13086-2.22412,0-1.03027-.3457-1.79639-1.03613-2.29932-.69141-.50244-1.77832-.75391-3.26074-.75391h-6.03125v5.99365h5.80469c1.50781,0,2.63867-.23877,3.39258-.71631Z"/>
+    </svg>
+  </div>
+</div>
+
+<script>
+  (function(){
+    const dock = document.getElementById('introLogoDock');
+    const svgStage = document.getElementById('introLogoSvg');
+    const taglinePath = document.getElementById('introTaglinePath');
+    const headerBar = document.getElementById('siteHeaderBar');
+
+    const WIDTH_BIG = 820;
+    const WIDTH_SMALL = 210;
+    const HEADER_HEIGHT = 100;
+    // the horizontal mark+bracket sit off-center inside the SVG viewBox (there's empty
+    // space below reserved for the tagline), so centering the whole viewBox in the header
+    // would push the visible logo up; this offsets the dock's "top" so the mark itself
+    // ends up vertically centered with equal padding above and below.
+    const VIEWBOX_H = 700;
+    const MARK_CENTER_FRAC = 0.458722;
+    const dockedSvgHeight = WIDTH_SMALL * (VIEWBOX_H / 910);
+    const TOP_SMALL = HEADER_HEIGHT / 2 + dockedSvgHeight * (0.5 - MARK_CENTER_FRAC);
+
+    function update(){
+      const vh = window.innerHeight;
+      const dockDistance = Math.max(420, vh * 0.55);
+      const scrollY = window.scrollY || window.pageYOffset;
+      const progress = Math.min(1, Math.max(0, scrollY / dockDistance));
+
+      const topBig = vh / 2;
+      const top = topBig + (TOP_SMALL - topBig) * progress;
+      const width = WIDTH_BIG + (WIDTH_SMALL - WIDTH_BIG) * progress;
+
+      dock.style.top = top + 'px';
+      dock.style.width = width.toFixed(1) + 'px';
+
+      let cls = 'square';
+      if(progress > 0.68) cls = 'square p1 p2';
+      else if(progress > 0.34) cls = 'square p1';
+      svgStage.setAttribute('class', cls);
+
+      const tagOpacity = Math.max(0, 1 - progress / 0.35);
+      taglinePath.style.opacity = tagOpacity;
+
+      const headerOpacity = Math.max(0, Math.min(1, (progress - 0.72) / 0.28));
+      headerBar.style.opacity = headerOpacity;
+      headerBar.style.pointerEvents = headerOpacity > 0.6 ? 'auto' : 'none';
+    }
+
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+    update();
+  })();
+</script>
+
+<div class="wrap">
+
+<svg width="0" height="0" style="position:absolute;overflow:hidden;">
+  <defs>
+    <symbol id="logoHor" viewBox="415.82 522.94 868.68 230.89">
+      <path d="M1215.35,733.83h49.15v-190.88h-190.88v190.88h49.15v-70.87h92.58v70.87ZM1122.76,613.81v-21.72h92.58v21.72h-92.58ZM861.02,542.95h190.88v190.88h-190.88v-49.15h141.73v-21.72h-141.73v-49.15h141.73v-21.72h-141.73v-49.15ZM648.42,733.83h49.15v-70.87h92.58v70.87h49.15v-190.88h-190.88v190.88ZM697.57,592.1h92.58v21.72h-92.58v-21.72ZM484.97,592.1h141.73v-49.15h-190.88v190.88h190.88v-120.02h-141.73v-21.72ZM577.55,662.96v21.72h-92.58v-21.72h92.58Z" fill="currentColor"/>
+    </symbol>
+    <symbol id="logoSq" viewBox="628.42 416.64 443.48 443.49">
+      <path d="M790.15,840.13h49.15v-190.88h-190.88v190.88h49.15v-70.87h92.58v70.87ZM697.57,720.11v-21.72h92.58v21.72h-92.58ZM861.02,436.65h190.88v190.88h-190.88v-49.15h141.73v-21.72h-141.73v-49.15h141.73v-21.72h-141.73v-49.15ZM861.01,840.13h49.15v-70.87h92.58v70.87h49.15v-190.88h-190.88v190.88ZM910.17,698.4h92.58v21.72h-92.58v-21.72ZM697.57,485.8h141.73v-49.15h-190.88v190.88h190.88v-120.02h-141.73v-21.72ZM790.15,556.66v21.72h-92.58v-21.72h92.58Z" fill="currentColor"/>
+    </symbol>
+    <symbol id="teenPhoto" viewBox="0 0 1600 1066" preserveAspectRatio="xMidYMid slice">
+        <image href="https://static.vecteezy.com/system/resources/previews/012/652/132/large_2x/arab-teenagers-group-using-smart-phones-for-social-media-networking-and-sharing-of-informations-for-online-education-selective-focus-free-photo.jpg" x="0" y="0" width="1600" height="1066" preserveAspectRatio="xMidYMid slice"/>
+    </symbol>
+  </defs>
+</svg>
+
+
+  <h1 class="page-title">БАЗА / Дизайн-система</h1>
+  <p class="page-sub">Собрано на основе логотипа. Геометричный гротеск, острые углы, диагональный градиент и жёсткая тень.</p>
+
+  <section>
+    <div class="section-head"><span class="section-num">01</span><h2 class="section-title">Цвет</h2></div>
+    <p class="section-desc">Оранжево-красный градиент — основной акцент бренда, чёрный — второй акцент и текст, светлый тёплый серый — фон страниц.</p>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-fill" style="background:var(--orange-dark)"></div><div class="swatch-info"><div class="swatch-name">Orange Dark</div><div class="swatch-hex">#D3300C</div></div></div>
+      <div class="swatch"><div class="swatch-fill" style="background:var(--orange)"></div><div class="swatch-info"><div class="swatch-name">Orange</div><div class="swatch-hex">#FF6A1A</div></div></div>
+      <div class="swatch"><div class="swatch-fill" style="background:var(--orange-light)"></div><div class="swatch-info"><div class="swatch-name">Orange Light</div><div class="swatch-hex">#FF9A42</div></div></div>
+      <div class="swatch"><div class="swatch-fill" style="background:var(--ink)"></div><div class="swatch-info"><div class="swatch-name">Ink</div><div class="swatch-hex">#141210</div></div></div>
+      <div class="swatch"><div class="swatch-fill" style="background:var(--paper)"></div><div class="swatch-info"><div class="swatch-name">Paper</div><div class="swatch-hex">#F2F0EC</div></div></div>
+      <div class="swatch"><div class="swatch-fill" style="background:var(--gray-600)"></div><div class="swatch-info"><div class="swatch-name">Gray 600</div><div class="swatch-hex">#6E6A64</div></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">02</span><h2 class="section-title">Типографика</h2></div>
+    <p class="section-desc">Заголовки — Unbounded (900, геометричный гротеск, близкий по духу к рубленым буквам логотипа). Текст — Inter.</p>
+    <div class="type-row"><div class="type-label">display / h1</div><div class="t-display t-h1">Записаться</div></div>
+    <div class="type-row"><div class="type-label">display / h2</div><div class="t-display t-h2">Молодые таланты</div></div>
+    <div class="type-row"><div class="type-label">display / h3</div><div class="t-display t-h3">Медиа-акселератор</div></div>
+    <div class="type-row"><div class="type-label">eyebrow</div><div class="t-eyebrow">Набор открыт</div></div>
+    <div class="type-row"><div class="type-label">body</div><div class="t-body">Помогаем молодым авторам делать сильные медиапроекты — от идеи до запуска.</div></div>
+    <div class="type-row"><div class="type-label">caption</div><div class="t-caption">Приём заявок до 30 сентября</div></div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">03</span><h2 class="section-title">Кнопки</h2></div>
+    <p class="section-desc">Три уровня из макета — заливка градиентом (основное действие), чёрная заливка (второй уровень) и контур (третий уровень) — плюс состояния и размеры.</p>
+    <div class="btn-grid">
+      <div class="btn-group"><div class="btn-group-label">primary</div><button class="btn btn-primary">Записаться</button></div>
+      <div class="btn-group"><div class="btn-group-label">dark</div><button class="btn btn-dark">Записаться</button></div>
+      <div class="btn-group"><div class="btn-group-label">outline</div><button class="btn btn-outline">Записаться</button></div>
+      <div class="btn-group"><div class="btn-group-label">disabled</div><button class="btn btn-primary btn-disabled">Записаться</button></div>
+    </div>
+    <div class="btn-grid" style="margin-top:var(--sp-4)">
+      <div class="btn-group"><div class="btn-group-label">size / sm</div><button class="btn btn-primary btn-sm">Записаться</button></div>
+      <div class="btn-group"><div class="btn-group-label">size / md (default)</div><button class="btn btn-primary">Записаться</button></div>
+      <div class="btn-group"><div class="btn-group-label">size / lg</div><button class="btn btn-primary btn-lg">Записаться</button></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">04</span><h2 class="section-title">Фирменная тень</h2></div>
+    <p class="section-desc">Сигнатурный элемент бренда: жёсткая тень без блюра. Используется на кнопках и карточках вместо мягких теней.</p>
+    <div class="shadow-demo">
+      <div class="shadow-box" style="box-shadow:var(--shadow)"></div>
+      <div class="shadow-box" style="box-shadow:var(--shadow-sm)"></div>
+      <div class="shadow-box" style="box-shadow:none"></div>
+      <div class="t-caption" style="max-width:220px">shadow (8px) · shadow-sm (5px) · без тени — для неактивных / фоновых элементов</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">05</span><h2 class="section-title">Отступы</h2></div>
+    <div class="space-row"><div class="space-label">sp-1 · 4px</div><div class="space-bar" style="width:4px"></div></div>
+    <div class="space-row"><div class="space-label">sp-2 · 8px</div><div class="space-bar" style="width:8px"></div></div>
+    <div class="space-row"><div class="space-label">sp-3 · 16px</div><div class="space-bar" style="width:16px"></div></div>
+    <div class="space-row"><div class="space-label">sp-4 · 24px</div><div class="space-bar" style="width:24px"></div></div>
+    <div class="space-row"><div class="space-label">sp-5 · 40px</div><div class="space-bar" style="width:40px"></div></div>
+    <div class="space-row"><div class="space-label">sp-6 · 64px</div><div class="space-bar" style="width:64px"></div></div>
+    <div class="space-row"><div class="space-label">sp-7 · 96px</div><div class="space-bar" style="width:96px"></div></div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">06</span><h2 class="section-title">Карточки и поле ввода</h2></div>
+    <div class="card-grid">
+      <div class="card"><div class="card-tag">Курс</div><h4>Сторителлинг для соцсетей</h4><p>6 недель, практика на реальных кейсах, разбор с наставником.</p></div>
+      <div class="card"><div class="card-tag">Курс</div><h4>Монтаж и видеопродакшн</h4><p>От раскадровки до финального рендера — с нуля до готового ролика.</p></div>
+      <div class="card"><div class="card-tag">Ивент</div><h4>Демо-день выпускников</h4><p>Показ проектов участникам рынка и потенциальным работодателям.</p></div>
+    </div>
+    <div class="field" style="margin-top:var(--sp-5)">
+      <label>Email</label>
+      <input type="email" placeholder="you@example.com">
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">07</span><h2 class="section-title">Хиро — вариант A (split)</h2></div>
+    <p class="section-desc">Заголовок слева, колонка с цифрами справа через тонкий разделитель.</p>
+    <div class="hero-a">
+      <div>
+        <span class="t-eyebrow">Набор 2026</span>
+        <h1 class="headline">Медиа-акселератор молодых талантов</h1>
+        <p class="lead">10 недель практики, менторы из индустрии и демо-день перед реальными работодателями.</p>
+        <button class="btn btn-primary">Записаться</button>
+      </div>
+      <div class="side">
+        <div class="stat"><b>120+</b><span>выпускников</span></div>
+        <div class="stat"><b>18</b><span>менторов</span></div>
+        <div class="stat"><b>10</b><span>недель</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">08</span><h2 class="section-title">Хиро — вариант B (statement)</h2></div>
+    <p class="section-desc">Инверсия: тёмный фон, центрированное заявление, две кнопки.</p>
+    <div class="hero-b">
+      <span class="t-eyebrow">Приём заявок открыт</span>
+      <h3>Заявки до 30 сентября</h3>
+      <p>Расскажи о своём проекте — конкурс проходит в два этапа, отбор по портфолио и короткому интервью.</p>
+      <div class="cta-row">
+        <button class="btn btn-primary">Подать заявку</button>
+        <button class="btn btn-outline-light">Как это устроено</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">09</span><h2 class="section-title">Таблица / сводка</h2></div>
+    <p class="section-desc">Вместо классической таблицы с ячейками — построчная сводка на тонких линиях.</p>
+    <div class="spec-table">
+      <div class="spec-row">
+        <div class="spec-index">01</div>
+        <div><div class="spec-name">Сторителлинг для соцсетей</div><div class="spec-meta">6 недель · онлайн</div></div>
+        <div class="spec-value">от 0 ₽</div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-index">02</div>
+        <div><div class="spec-name">Монтаж и видеопродакшн</div><div class="spec-meta">8 недель · офлайн</div></div>
+        <div class="spec-value">от 12 000 ₽</div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-index">03</div>
+        <div><div class="spec-name">Продюсирование медиапроектов</div><div class="spec-meta">10 недель · гибрид</div></div>
+        <div class="spec-value">от 18 000 ₽</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">10</span><h2 class="section-title">Текст + картинка</h2></div>
+    <p class="section-desc">Асимметричная сетка 5/7. Два зеркальных варианта для чередования по странице.</p>
+    <div class="media-text">
+      <div class="media"></div>
+      <div>
+        <span class="tag">Формат</span>
+        <h4>Практика важнее теории</h4>
+        <p>Каждую неделю — реальная задача от партнёра акселератора и разбор с наставником, который сам через это прошёл.</p>
+      </div>
+    </div>
+    <div class="media-text reverse">
+      <div>
+        <span class="tag">Комьюнити</span>
+        <h4>Не курс, а среда</h4>
+        <p>Выпускники остаются в комьюнити: совместные проекты, стажировки и рекомендации внутри индустрии.</p>
+      </div>
+      <div class="media"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">11</span><h2 class="section-title">Списки</h2></div>
+    <p class="section-desc">Нумерованный список на линиях — для этапов и структуры. Чек-лист с квадратными марками — для условий и требований.</p>
+    <div class="btn-grid" style="align-items:flex-start;">
+      <ul class="num-list" style="flex:1;min-width:280px;">
+        <li><span class="n">01</span><span class="t">Подача заявки и портфолио</span></li>
+        <li><span class="n">02</span><span class="t">Короткое интервью с командой</span></li>
+        <li><span class="n">03</span><span class="t">10 недель практики и менторства</span></li>
+        <li><span class="n">04</span><span class="t">Демо-день для работодателей</span></li>
+      </ul>
+      <ul class="check-list" style="flex:1;min-width:280px;">
+        <li><span class="check-mark"></span><span>Возраст от 16 до 25 лет</span></li>
+        <li><span class="check-mark"></span><span>Готовность уделять 10+ часов в неделю</span></li>
+        <li><span class="check-mark"></span><span>Свой проект или идея — необязательно готовая</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">12</span><h2 class="section-title">Формы: select, чекбокс, радио</h2></div>
+    <p class="section-desc">Единый язык с текстовым полем: обводка 2px, острые углы. Выбранный чекбокс и радио закрашены градиентом. Дропдаун — кастомная панель опций.</p>
+    <div class="form-grid">
+      <div class="field">
+        <label>Направление</label>
+        <div class="custom-select" id="customSelect">
+          <button type="button" class="cs-trigger" id="csTrigger">
+            <span id="csValue">Сторителлинг</span>
+            <span class="cs-arrow"></span>
+          </button>
+          <div class="cs-panel" id="csPanel">
+            <div class="cs-option is-selected" data-value="Сторителлинг">Сторителлинг</div>
+            <div class="cs-option" data-value="Видеопродакшн">Видеопродакшн</div>
+            <div class="cs-option" data-value="Продюсирование">Продюсирование</div>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Согласия</label>
+        <div class="checkbox-row"><input type="checkbox" id="c1" checked><label for="c1">Согласен с политикой конфиденциальности</label></div>
+        <div class="checkbox-row"><input type="checkbox" id="c2"><label for="c2">Хочу получать новости акселератора</label></div>
+      </div>
+    </div>
+    <div class="field" style="margin-top:var(--sp-4)">
+      <label>Формат участия</label>
+      <div class="radio-row"><input type="radio" name="format" id="r1" checked><label for="r1">Онлайн</label></div>
+      <div class="radio-row"><input type="radio" name="format" id="r2"><label for="r2">Офлайн, Москва</label></div>
+      <div class="radio-row"><input type="radio" name="format" id="r3"><label for="r3">Гибрид</label></div>
+    </div>
+  </section>
+
+  <script>
+    (function(){
+      const cs = document.getElementById('customSelect');
+      const trigger = document.getElementById('csTrigger');
+      const panel = document.getElementById('csPanel');
+      const valueEl = document.getElementById('csValue');
+      trigger.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        cs.classList.toggle('open');
+      });
+      panel.querySelectorAll('.cs-option').forEach(opt=>{
+        opt.addEventListener('click', ()=>{
+          panel.querySelectorAll('.cs-option').forEach(o=>o.classList.remove('is-selected'));
+          opt.classList.add('is-selected');
+          valueEl.textContent = opt.dataset.value;
+          cs.classList.remove('open');
+        });
+      });
+      document.addEventListener('click', (e)=>{
+        if(!cs.contains(e.target)) cs.classList.remove('open');
+      });
+    })();
+  </script>
+
+  <section>
+    <div class="section-head"><span class="section-num">13</span><h2 class="section-title">Полноэкранные блоки и мягкая геометрия</h2></div>
+    <p class="section-desc">Форма держится цветом. Пунктирные засечки по углам — чертёжные метки.</p>
+
+    <div class="fullbleed fullbleed-a">
+      <div class="fb-shape"></div>
+      <div class="bp-corner tl"></div>
+      <div class="bp-corner tr"></div>
+      <div class="bp-label" style="top:26px; left:64px;">БАЗА / 01</div>
+      <div class="fb-content">
+        <span class="t-eyebrow">Медиа-акселератор</span>
+        <h2>Тут растут таланты</h2>
+        <p>Полноэкранный вводный блок — заголовок и один CTA, ничего лишнего вокруг.</p>
+        <button class="btn btn-dark">Записаться</button>
+      </div>
+      <div class="fb-corner-strip"><div class="notch-strip"></div></div>
+    </div>
+
+    <div style="height:var(--sp-5)"></div>
+
+    <div class="fullbleed fullbleed-b">
+      <div class="fb-shape"></div>
+      <div class="bp-corner bl"></div>
+      <div class="bp-corner br"></div>
+      <div class="bp-label" style="bottom:26px; right:64px;">02 / 2026</div>
+      <div class="fb-content">
+        <span class="t-eyebrow">Демо-день</span>
+        <h2>Покажи свой проект индустрии</h2>
+        <p>Инверсия той же схемы: тёмный фон, диагональный клин цвета вместо фото, две кнопки.</p>
+        <div class="cta-row">
+          <button class="btn btn-primary">Смотреть проекты</button>
+          <button class="btn btn-outline-light">Программа дня</button>
+        </div>
+      </div>
+      <div class="fb-corner-strip"><div class="notch-strip on-dark"></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">14</span><h2 class="section-title">Ритм вырезов</h2></div>
+    <p class="section-desc">Ритм перфорации по мотивам вырезов в буквах «Б», «А», «З». Разделитель между секциями и сноска под заголовками.</p>
+    <div class="notch-strip"></div>
+    <div style="height:var(--sp-3)"></div>
+    <div class="blueprint-rule">СЕКЦИЯ 04 / 07</div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">15</span><h2 class="section-title">Фото сквозь лого</h2></div>
+    <p class="section-desc">Контур логотипа как маска для фотографии.</p>
+    <div class="photo-mask-block">
+      <svg viewBox="415.82 522.94 868.68 230.89" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <clipPath id="photoMaskClip" clipPathUnits="userSpaceOnUse">
+            <path transform="translate(850.16,638.385) scale(1.02) translate(-850.16,-638.385)" d="M1215.35,733.83h49.15v-190.88h-190.88v190.88h49.15v-70.87h92.58v70.87ZM1122.76,613.81v-21.72h92.58v21.72h-92.58ZM861.02,542.95h190.88v190.88h-190.88v-49.15h141.73v-21.72h-141.73v-49.15h141.73v-21.72h-141.73v-49.15ZM648.42,733.83h49.15v-70.87h92.58v70.87h49.15v-190.88h-190.88v190.88ZM697.57,592.1h92.58v21.72h-92.58v-21.72ZM484.97,592.1h141.73v-49.15h-190.88v190.88h190.88v-120.02h-141.73v-21.72ZM577.55,662.96v21.72h-92.58v-21.72h92.58Z"/>
+          </clipPath>
+        </defs>
+        <g clip-path="url(#photoMaskClip)">
+          <use href="#teenPhoto" x="415.82" y="522.94" width="868.68" height="230.89"/>
+        </g>
+      </svg>
+      <div class="photo-mask-caption">clipPath: контур логотипа · фото по центру</div>
+    </div>
+    <div class="photo-mask-block2">
+      <svg viewBox="415.82 522.94 868.68 230.89" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <clipPath id="photoMaskClip" clipPathUnits="userSpaceOnUse">
+            <path transform="translate(850.16,638.385) scale(1.02) translate(-850.16,-638.385)" d="M1215.35,733.83h49.15v-190.88h-190.88v190.88h49.15v-70.87h92.58v70.87ZM1122.76,613.81v-21.72h92.58v21.72h-92.58ZM861.02,542.95h190.88v190.88h-190.88v-49.15h141.73v-21.72h-141.73v-49.15h141.73v-21.72h-141.73v-49.15ZM648.42,733.83h49.15v-70.87h92.58v70.87h49.15v-190.88h-190.88v190.88ZM697.57,592.1h92.58v21.72h-92.58v-21.72ZM484.97,592.1h141.73v-49.15h-190.88v190.88h190.88v-120.02h-141.73v-21.72ZM577.55,662.96v21.72h-92.58v-21.72h92.58Z"/>
+          </clipPath>
+        </defs>
+        <g clip-path="url(#photoMaskClip)">
+          <use href="#teenPhoto" x="415.82" y="522.94" width="868.68" height="230.89"/>
+        </g>
+      </svg>
+      <div class="photo-mask-caption2">clipPath: контур логотипа · фото по центру</div>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="section-head"><span class="section-num">16</span><h2 class="section-title">Водяной знак фона</h2></div>
+    <p class="section-desc">Логотип цветом чуть темнее фона paper, крупным пятном навылет за текстовым блоком.</p>
+    <div class="watermark-block">
+      <svg class="watermark-mark" viewBox="0 0 1699.9 1275.07">
+        <path d="M1215.35,733.83h49.15v-190.88h-190.88v190.88h49.15v-70.87h92.58v70.87ZM1122.76,613.81v-21.72h92.58v21.72h-92.58ZM861.02,542.95h190.88v190.88h-190.88v-49.15h141.73v-21.72h-141.73v-49.15h141.73v-21.72h-141.73v-49.15ZM648.42,733.83h49.15v-70.87h92.58v70.87h49.15v-190.88h-190.88v190.88ZM697.57,592.1h92.58v21.72h-92.58v-21.72ZM484.97,592.1h141.73v-49.15h-190.88v190.88h190.88v-120.02h-141.73v-21.72ZM577.55,662.96v21.72h-92.58v-21.72h92.58Z" fill="currentColor"/>
+      </svg>
+      <div class="watermark-block-content">
+        <span class="t-eyebrow">О проекте</span>
+        <h3 class="t-display t-h3">Медиа-акселератор молодых талантов</h3>
+        <p class="t-body">Помогаем молодым авторам делать сильные медиапроекты — от идеи до запуска.</p>
+        <button class="btn btn-dark">Записаться</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">17</span><h2 class="section-title">Параллакс через лого-окно</h2></div>
+    <p class="section-desc">Контур логотипа как окно: фотография внутри сдвигается медленнее страницы при скролле.</p>
+    <div class="parallax-window" id="pxWindow">
+      <svg viewBox="415.82 522.94 868.68 230.89" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <clipPath id="pxClip" clipPathUnits="userSpaceOnUse">
+            <path transform="translate(850.16,638.385) scale(1.02) translate(-850.16,-638.385)" d="M1215.35,733.83h49.15v-190.88h-190.88v190.88h49.15v-70.87h92.58v70.87ZM1122.76,613.81v-21.72h92.58v21.72h-92.58ZM861.02,542.95h190.88v190.88h-190.88v-49.15h141.73v-21.72h-141.73v-49.15h141.73v-21.72h-141.73v-49.15ZM648.42,733.83h49.15v-70.87h92.58v70.87h49.15v-190.88h-190.88v190.88ZM697.57,592.1h92.58v21.72h-92.58v-21.72ZM484.97,592.1h141.73v-49.15h-190.88v190.88h190.88v-120.02h-141.73v-21.72ZM577.55,662.96v21.72h-92.58v-21.72h92.58Z"/>
+          </clipPath>
+        </defs>
+        <g clip-path="url(#pxClip)">
+          <use id="pxLayer" href="#teenPhoto" x="415.82" y="407.5" width="868.68" height="461.78"/>
+        </g>
+      </svg>
+    </div>
+    <div class="parallax-caption">прокрути страницу — фото сдвигается медленнее контента</div>
+  </section>
+
+  <script>
+    (function(){
+      function updatePx(){
+        const el = document.getElementById('pxWindow');
+        const layer = document.getElementById('pxLayer');
+        if(!el || !layer) return;
+        const rect = el.getBoundingClientRect();
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        const progress = (vh/2) - (rect.top + rect.height/2);
+        const offset = progress * 0.22;
+        layer.setAttribute('transform', 'translate(0,' + offset + ')');
+      }
+      window.addEventListener('scroll', updatePx, {passive:true});
+      window.addEventListener('resize', updatePx);
+      updatePx();
+    })();
+  </script>
+
+  <section>
+    <div class="section-head"><span class="section-num">18</span><h2 class="section-title">Логотип и движение</h2></div>
+    <p class="section-desc">Сигнатурная анимация сборки логотипа — переход от квадратного знака к горизонтальному написанию в два такта.</p>
+    <div class="logo-demo">
+      <div class="logo-stage square" id="logoStage">
+        <div class="tile b">Б</div>
+        <div class="tile a1">А</div>
+        <div class="tile z">З</div>
+        <div class="tile a2">А</div>
+        <div class="bracket"></div>
+      </div>
+      <div class="logo-caption">700ms на такт</div>
+      <button class="replay-btn" id="replayBtn">Повторить</button>
+    </div>
+  </section>
+
+  <footer>Дизайн-система · БАЗА · медиа-акселератор молодых талантов</footer>
+
+  <script>
+    const stage = document.getElementById('logoStage');
+    const btn = document.getElementById('replayBtn');
+    const STEP = 750;
+    function playCycle(){
+      stage.className = 'logo-stage square';
+      requestAnimationFrame(()=>{
+        setTimeout(()=> stage.className='logo-stage square p1', 50);
+        setTimeout(()=> stage.className='logo-stage square p1 p2', 50+STEP);
+        setTimeout(()=> stage.className='logo-stage square', 50+STEP*3);
+      });
+    }
+    btn.addEventListener('click', playCycle);
+    setTimeout(playCycle, 900);
+  </script>
+</div>
+</body>
+</html>
