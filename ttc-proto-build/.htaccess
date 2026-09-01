@@ -1,0 +1,11 @@
+# SPA fallback: the catalog pages (/catalog/{slug}/) are real, shareable URLs handled
+# client-side by React (no server-side pages exist for them). Without this rule, a direct
+# visit or a page refresh on one of those URLs would 404 — this rule sends any request that
+# isn't an existing file/folder to index.html instead, letting the app take over and render
+# the right page from the URL. Relative rule target, so it works at any deployment depth.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.html [L]
+</IfModule>
