@@ -68,6 +68,7 @@
   .cell.drop-up::before, .cell.drop-down::after { content: ""; position: absolute; left: 0; right: 0; height: 4px; background: var(--accent); z-index: 3; }
   .cell.drop-up::before { top: 0; } .cell.drop-down::after { bottom: 0; }
   .addcol { position: absolute; left: 50%; bottom: 6px; transform: translateX(-50%); z-index: 3; opacity: 0; padding: 2px 10px; font-size: 12px; background: rgba(0,0,0,.72); white-space: nowrap; transition: opacity .12s; }
+  body.dragging .addcol, body.dragging .x, body.dragging .colh:not([draggable]) { pointer-events: none; }
   .unit:hover .addcol, .addcol:focus-visible { opacity: 1; }
   .empty { color: var(--dim); text-align: center; padding: 40px; border: 1px dashed var(--line); border-radius: 8px; }
   #toast { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); background: #22242a; border: 1px solid var(--line); padding: 9px 16px; border-radius: 8px; z-index: 50; max-width: 90vw; }
@@ -279,10 +280,14 @@ function locate(img) {
 const dragItems = d => { const u = S.rows[d.ri][d.ui]; return d.kind === 'img' ? [u.stack[d.k]] : (u.stack ? u.stack.slice() : [u]); };
 
 /* Куда упадёт перетаскиваемое: новая колонка рядом (левый/правый край картинки) или в колонку выше/ниже картинки. */
-function dropTarget(block, bri, un, cl, e) {
+function dropTarget(block, bri, un, cl, e) {   // cl может быть переопределён ниже
   const d = drag, items = dragItems(d), row = S.rows[bri];
   let cols = row.length; if (d.ri === bri && d.kind === 'unit') cols--;
   const canNew = cols + 1 <= MAXROW;
+  if (un && !cl) {   // навели на кнопку/метку поверх колонки: берём картинку под курсором по координатам
+    const cs = [...un.querySelectorAll('.cell')];
+    cl = cs.find(c => { const q = c.getBoundingClientRect(); return e.clientY >= q.top && e.clientY <= q.bottom; }) || cs[cs.length - 1];
+  }
   if (!un || !cl) {   // мимо картинок: в конец блока новой колонкой
     const lu = row[row.length - 1], img = lu.stack ? lu.stack[0] : lu;
     return canNew && !items.includes(img) ? { img, mode: 'new', after: true, mark: block, cls: 'file-over' } : null;
@@ -291,7 +296,7 @@ function dropTarget(block, bri, un, cl, e) {
   const uidx = +un.dataset.ui, tu = row[uidx], same = d.ri === bri && d.ui === uidx;
   let n = tu.stack ? tu.stack.length : 1; if (same && d.kind === 'img') n--;
   const colOK = !(same && d.kind === 'unit') && n + items.length <= MAXSTACK;
-  const edge = fx < .3 ? 'before' : fx > .7 ? 'after' : null;
+  const edge = fx < .22 ? 'before' : fx > .78 ? 'after' : null;
   if (edge && canNew && !items.includes(im)) return { img: im, mode: 'new', after: edge === 'after', mark: un, cls: edge === 'after' ? 'drop-after' : 'drop-before' };
   if (colOK && !items.includes(im)) { const after = fy > .5; return { img: im, mode: 'col', after, mark: cl, cls: after ? 'drop-down' : 'drop-up' }; }
   return null;
@@ -316,8 +321,9 @@ rowsEl.addEventListener('dragstart', e => {
   else if (un) drag = { kind: 'unit', ri: +un.closest('.block').dataset.ri, ui: +un.dataset.ui };
   else return;
   e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', 'x');
+  setTimeout(() => document.body.classList.add('dragging'), 0);
 });
-rowsEl.addEventListener('dragend', () => { drag = null; clearMarks(); });
+rowsEl.addEventListener('dragend', () => { drag = null; clearMarks(); document.body.classList.remove('dragging'); });
 rowsEl.addEventListener('dragover', e => {
   const block = e.target.closest('.block');
   if (isFiles(e)) { if (block) { e.preventDefault(); clearMarks(); block.classList.add('file-over'); } return; }
@@ -339,7 +345,7 @@ rowsEl.addEventListener('drop', async e => {
   const block = e.target.closest('.block');
   if (isFiles(e)) { e.preventDefault(); clearMarks(); if (block) addFiles([...e.dataTransfer.files], +block.dataset.ri); return; }
   if (!drag || !drag.target) return;
-  e.preventDefault(); const d = drag, t = d.target; drag = null; clearMarks();
+  e.preventDefault(); const d = drag, t = d.target; drag = null; clearMarks(); document.body.classList.remove('dragging');
   if (d.kind === 'row') {
     const [r] = S.rows.splice(d.ri, 1); let to = t.ri + (t.after ? 1 : 0); if (d.ri < to) to--; S.rows.splice(to, 0, r);
   } else applyDrop(d, t);
