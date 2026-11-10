@@ -63,6 +63,12 @@
   .cell:hover .x, .x:focus-visible { opacity: 1; }
   .x:hover { background: var(--danger); border-color: var(--danger); }
   .tag { position: absolute; left: 6px; top: 6px; font-size: 11px; padding: 1px 6px; border-radius: 4px; background: rgba(0,0,0,.65); color: #ddd; z-index: 2; pointer-events: none; }
+  .colh { position: absolute; left: 6px; top: 6px; font-size: 11px; padding: 1px 6px; border-radius: 4px; background: rgba(0,0,0,.65); color: #ddd; z-index: 2; cursor: grab; user-select: none; }
+  .cell[draggable=true] { cursor: grab; }
+  .cell.drop-up::before, .cell.drop-down::after { content: ""; position: absolute; left: 0; right: 0; height: 4px; background: var(--accent); z-index: 3; }
+  .cell.drop-up::before { top: 0; } .cell.drop-down::after { bottom: 0; }
+  .addcol { position: absolute; left: 50%; bottom: 6px; transform: translateX(-50%); z-index: 3; opacity: 0; padding: 2px 10px; font-size: 12px; background: rgba(0,0,0,.72); white-space: nowrap; transition: opacity .12s; }
+  .unit:hover .addcol, .addcol:focus-visible { opacity: 1; }
   .empty { color: var(--dim); text-align: center; padding: 40px; border: 1px dashed var(--line); border-radius: 8px; }
   #toast { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); background: #22242a; border: 1px solid var(--line); padding: 9px 16px; border-radius: 8px; z-index: 50; max-width: 90vw; }
   #toast.bad { border-color: var(--danger); color: #ffb0b0; }
@@ -108,7 +114,7 @@
       </div>
       <div id="rows" class="rows"></div>
       <div class="blocks-top" style="margin-top:14px"><button id="newBottom">+ Новый блок в конец</button></div>
-      <div class="hint">В блоке 1–3 картинки (или стопка). Высота и ширина считаются автоматически, так, чтобы блок занимал всю ширину сайта. Картинки можно перетаскивать между блоками. Файлы можно бросать прямо на блок. JPG сжимаются с качеством 77.</div>
+      <div class="hint">В блоке любое число колонок, в колонке любое число картинок одна над другой. Высота и ширина считаются автоматически: колонки одной высоты, блок на всю ширину сайта. Картинку перетаскивают на край другой картинки (новая колонка рядом) или на её верхнюю/нижнюю половину (в колонку над ней или под ней); колонку целиком — за метку «колонка». «+ в колонку» появляется при наведении. Файлы можно бросать прямо на блок. JPG сжимаются с качеством 77.</div>
     </section>
   </main>
 </div>
@@ -120,7 +126,8 @@
 'use strict';
 const $ = s => document.querySelector(s);
 const H = { 'X-Requested-With': 'admin' };
-const MAXROW = 3;
+const MAXROW = 40, MAXSTACK = 40; // страховочные потолки (как на сервере), на практике без ограничений
+const CHUNK = 3;   // по сколько картинок раскладывать в новые блоки при массовой загрузке
 let S = null, dirty = false, drag = null, pickFor = null;
 
 /* ---------- utils ---------- */
@@ -219,26 +226,30 @@ function renderRows() {
     const head = el('div', { class: 'bh' },
       el('span', { class: 'handle', draggable: 'true', title: 'Перетащить блок', 'aria-label': 'Перетащить блок' }, '⠿'),
       el('span', { class: 'bn' }, 'Блок ' + (ri + 1)),
-      el('span', { class: 'bi' }, row.length + ' в ряду · ширины ' + widths.map(pct).join(' / ') + '% · высота ≈ ' + Math.round(1000 / (row.length === 1 ? asp(row[0]) : tot)) + ' px при ширине 1000'),
-      el('button', { title: cap ? 'Добавить картинки в блок' : 'В блоке уже 3', disabled: !cap, onclick: () => pick(ri) }, '+ Картинка'),
+      el('span', { class: 'bi' }, 'колонок: ' + row.length + ' · ширины ' + widths.map(pct).join(' / ') + '% · высота ≈ ' + Math.round(1000 / (row.length === 1 ? asp(row[0]) : tot)) + ' px при ширине 1000'),
+      el('button', { title: 'Добавить картинки в блок новыми колонками', disabled: !cap, onclick: () => pick(ri) }, '+ Картинка'),
       el('button', { title: 'Новый блок под этим', onclick: () => pick('after:' + ri) }, '+ Блок ниже'),
       el('button', { class: 'danger', onclick: () => { if (confirm('Удалить блок ' + (ri + 1) + '? Файлы картинок останутся в папке.')) { S.rows.splice(ri, 1); commit(); } } }, 'Удалить'));
     const prev = el('div', { class: 'prev' });
     row.forEach((u, ui) => {
-      const unit = el('div', { class: 'unit', draggable: 'true', 'data-ui': ui, style: 'width:' + pct(widths[ui]) + '%' });
+      const unit = el('div', { class: 'unit', draggable: !u.stack, 'data-ui': ui, style: 'width:' + pct(widths[ui]) + '%' });
       if (u.stack) {
-        unit.append(el('span', { class: 'tag' }, 'стопка'));
-        u.stack.forEach((im, k) => unit.append(cell(im, () => removeImage(ri, ui, k))));
+        unit.append(el('span', { class: 'colh', draggable: 'true', title: 'Перетащить всю колонку' }, '⠿ колонка · ' + u.stack.length));
+        u.stack.forEach((im, k) => unit.append(cell(im, () => removeImage(ri, ui, k), k)));
       } else unit.append(cell(u, () => removeImage(ri, ui)));
+      const last = u.stack ? u.stack[u.stack.length - 1] : u;
+      if ((u.stack ? u.stack.length : 1) < MAXSTACK)
+        unit.append(el('button', { class: 'addcol', title: 'Добавить картинки в эту колонку (под последней)', onclick: ev => { ev.stopPropagation(); pick({ after: last }); } }, '+ в колонку'));
       prev.append(unit);
     });
     box.append(el('div', { class: 'block', 'data-ri': ri }, head, prev));
   });
 }
-function cell(im, onRemove) {
-  return el('div', { class: 'cell' },
+function cell(im, onRemove, k) {
+  const c = el('div', { class: 'cell', draggable: k != null ? 'true' : false, 'data-k': k },
     el('img', { src: '/' + im.src, alt: '', draggable: 'false', loading: 'lazy', style: 'aspect-ratio:' + im.w + '/' + im.h, title: im.src.replace('images/', '') }),
     el('button', { class: 'x', title: 'Убрать из блока', 'aria-label': 'Убрать картинку', onclick: ev => { ev.stopPropagation(); onRemove(); } }, '✕'));
+  c._im = im; return c;
 }
 function removeImage(ri, ui, k) {
   const row = S.rows[ri], u = row[ui];
@@ -253,11 +264,55 @@ function removeImage(ri, ui, k) {
 /* ---------- drag & drop ---------- */
 const rowsEl = $('#rows');
 const isFiles = e => e.dataTransfer && [...e.dataTransfer.types].includes('Files');
-function clearMarks() { document.querySelectorAll('.drop-above,.drop-below,.drop-before,.drop-after,.file-over').forEach(n => n.classList.remove('drop-above', 'drop-below', 'drop-before', 'drop-after', 'file-over')); }
+function clearMarks() { document.querySelectorAll('.drop-above,.drop-below,.drop-before,.drop-after,.drop-up,.drop-down,.file-over').forEach(n => n.classList.remove('drop-above', 'drop-below', 'drop-before', 'drop-after', 'drop-up', 'drop-down', 'file-over')); }
+
+function locate(img) {
+  for (let ri = 0; ri < S.rows.length; ri++) {
+    const row = S.rows[ri];
+    for (let ui = 0; ui < row.length; ui++) {
+      const u = row[ui]; if (u === img) return { ri, ui, k: null };
+      if (u.stack) { const k = u.stack.indexOf(img); if (k >= 0) return { ri, ui, k }; }
+    }
+  }
+  return null;
+}
+const dragItems = d => { const u = S.rows[d.ri][d.ui]; return d.kind === 'img' ? [u.stack[d.k]] : (u.stack ? u.stack.slice() : [u]); };
+
+/* Куда упадёт перетаскиваемое: новая колонка рядом (левый/правый край картинки) или в колонку выше/ниже картинки. */
+function dropTarget(block, bri, un, cl, e) {
+  const d = drag, items = dragItems(d), row = S.rows[bri];
+  let cols = row.length; if (d.ri === bri && d.kind === 'unit') cols--;
+  const canNew = cols + 1 <= MAXROW;
+  if (!un || !cl) {   // мимо картинок: в конец блока новой колонкой
+    const lu = row[row.length - 1], img = lu.stack ? lu.stack[0] : lu;
+    return canNew && !items.includes(img) ? { img, mode: 'new', after: true, mark: block, cls: 'file-over' } : null;
+  }
+  const im = cl._im, r = cl.getBoundingClientRect(), fx = (e.clientX - r.left) / r.width, fy = (e.clientY - r.top) / r.height;
+  const uidx = +un.dataset.ui, tu = row[uidx], same = d.ri === bri && d.ui === uidx;
+  let n = tu.stack ? tu.stack.length : 1; if (same && d.kind === 'img') n--;
+  const colOK = !(same && d.kind === 'unit') && n + items.length <= MAXSTACK;
+  const edge = fx < .3 ? 'before' : fx > .7 ? 'after' : null;
+  if (edge && canNew && !items.includes(im)) return { img: im, mode: 'new', after: edge === 'after', mark: un, cls: edge === 'after' ? 'drop-after' : 'drop-before' };
+  if (colOK && !items.includes(im)) { const after = fy > .5; return { img: im, mode: 'col', after, mark: cl, cls: after ? 'drop-down' : 'drop-up' }; }
+  return null;
+}
+function applyDrop(d, t) {
+  const items = dragItems(d), srcRow = S.rows[d.ri], su = srcRow[d.ui];
+  if (items.includes(t.img)) return;
+  if (d.kind === 'img') { su.stack.splice(d.k, 1); if (su.stack.length === 1) srcRow[d.ui] = su.stack[0]; }
+  else srcRow.splice(d.ui, 1);
+  const L = locate(t.img), row = S.rows[L.ri];
+  if (t.mode === 'col') {
+    let u = row[L.ui]; if (!u.stack) { u = { stack: [u] }; row[L.ui] = u; L.k = 0; }
+    u.stack.splice(L.k + (t.after ? 1 : 0), 0, ...items);
+  } else row.splice(L.ui + (t.after ? 1 : 0), 0, items.length > 1 ? { stack: items } : items[0]);
+  S.rows = S.rows.filter(r => r.length);
+}
 
 rowsEl.addEventListener('dragstart', e => {
-  const hnd = e.target.closest && e.target.closest('.handle'), un = e.target.closest && e.target.closest('.unit');
+  const T = e.target, hnd = T.closest && T.closest('.handle'), un = T.closest && T.closest('.unit'), colh = T.closest && T.closest('.colh'), cl = T.closest && T.closest('.cell');
   if (hnd) { const b = hnd.closest('.block'); drag = { kind: 'row', ri: +b.dataset.ri }; e.dataTransfer.setDragImage(b, 24, 18); }
+  else if (un && !colh && cl && cl.dataset.k != null) drag = { kind: 'img', ri: +un.closest('.block').dataset.ri, ui: +un.dataset.ui, k: +cl.dataset.k };
   else if (un) drag = { kind: 'unit', ri: +un.closest('.block').dataset.ri, ui: +un.dataset.ui };
   else return;
   e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', 'x');
@@ -273,14 +328,10 @@ rowsEl.addEventListener('dragover', e => {
     const r = block.getBoundingClientRect(), after = e.clientY > r.top + r.height / 2;
     block.classList.add(after ? 'drop-below' : 'drop-above'); drag.target = { ri: bri, after };
   } else if (e.target.closest('.prev')) {
-    const full = bri !== drag.ri && S.rows[bri].length >= MAXROW;
-    if (full) { clearMarks(); drag.target = null; return; }
-    e.preventDefault(); clearMarks();
-    const un = e.target.closest('.unit');
-    if (un) {
-      const r = un.getBoundingClientRect(), after = e.clientX > r.left + r.width / 2;
-      un.classList.add(after ? 'drop-after' : 'drop-before'); drag.target = { ri: bri, pos: +un.dataset.ui + (after ? 1 : 0) };
-    } else { block.classList.add('file-over'); drag.target = { ri: bri, pos: S.rows[bri].length }; }
+    clearMarks();
+    const t = dropTarget(block, bri, e.target.closest('.unit'), e.target.closest('.cell'), e);
+    drag.target = t; if (!t) return;
+    e.preventDefault(); t.mark.classList.add(t.cls);
   }
 });
 rowsEl.addEventListener('dragleave', e => { if (!rowsEl.contains(e.relatedTarget)) clearMarks(); });
@@ -291,11 +342,7 @@ rowsEl.addEventListener('drop', async e => {
   e.preventDefault(); const d = drag, t = d.target; drag = null; clearMarks();
   if (d.kind === 'row') {
     const [r] = S.rows.splice(d.ri, 1); let to = t.ri + (t.after ? 1 : 0); if (d.ri < to) to--; S.rows.splice(to, 0, r);
-  } else {
-    const src = S.rows[d.ri], dst = S.rows[t.ri];
-    const [u] = src.splice(d.ui, 1); let pos = t.pos; if (src === dst && d.ui < pos) pos--;
-    dst.splice(pos, 0, u); S.rows = S.rows.filter(r => r.length);
-  }
+  } else applyDrop(d, t);
   commit();
 });
 ['dragover', 'drop'].forEach(n => document.addEventListener(n, e => { if (isFiles(e) && !e.target.closest('.block')) e.preventDefault(); }));
@@ -308,6 +355,7 @@ $('#filePick').addEventListener('change', e => {
   const files = [...e.target.files]; if (!files.length) return;
   const t = pickFor;
   if (typeof t === 'number') addFiles(files, t);
+  else if (t && t.after) addFiles(files, null, null, t.after);
   else if (t === 'start') addFiles(files, null, 0);
   else if (t === 'end') addFiles(files, null, S.rows.length);
   else if (String(t).startsWith('after:')) addFiles(files, null, +t.slice(6) + 1);
@@ -317,7 +365,7 @@ async function upload(file) {
   return { src: r.src, w: r.w, h: r.h, _from: file.size, _to: r.bytes };
 }
 let busy = false;
-async function addFiles(files, intoRow, insertAt) {
+async function addFiles(files, intoRow, insertAt, afterImg) {
   files = files.filter(f => /^image\//.test(f.type) || /\.(jpe?g|png|gif|webp)$/i.test(f.name));
   if (!files.length || busy) { if (!files.length) toast('Нужны изображения', true); return; }
   busy = true; const got = []; let from = 0, to = 0;
@@ -333,7 +381,15 @@ async function addFiles(files, intoRow, insertAt) {
     const row = S.rows[intoRow]; while (row.length < MAXROW && got.length) row.push(got.shift());
     insertAt = intoRow + 1;
   }
-  while (got.length) { S.rows.splice(insertAt++, 0, got.splice(0, MAXROW)); created++; }
+  if (afterImg) {
+    const L = locate(afterImg);
+    if (L) {
+      const row = S.rows[L.ri]; let u = row[L.ui]; if (!u.stack) { u = { stack: [u] }; row[L.ui] = u; L.k = 0; }
+      u.stack.splice(L.k + 1, 0, ...got.splice(0, Math.max(0, MAXSTACK - u.stack.length)));
+      insertAt = L.ri + 1;
+    } else insertAt = S.rows.length;
+  }
+  while (got.length) { S.rows.splice(insertAt++, 0, got.splice(0, CHUNK)); created++; }
   commit();
   const mb = n => (n / 1048576).toFixed(1);
   toast('Добавлено ' + files.length + (created ? ' · новых блоков: ' + created : '') + ' · ' + mb(from) + ' МБ → ' + mb(to) + ' МБ (JPG сжаты до качества 77)');

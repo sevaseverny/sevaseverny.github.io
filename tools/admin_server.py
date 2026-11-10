@@ -132,14 +132,14 @@ def clean_data(d):
         contacts.append({'text': text[:200], 'href': href[:300]})
     rows, seen = [], set()
     for r in d.get('rows', []):
-        if not isinstance(r, list) or not 1 <= len(r) <= 3:
-            raise ValueError('В блоке должно быть от 1 до 3 элементов')
+        if not isinstance(r, list) or not 1 <= len(r) <= 40:
+            raise ValueError('В блоке должно быть от 1 до 40 колонок')
         row = []
         for it in r:
             if isinstance(it, dict) and 'stack' in it:
                 st = [clean_image(i) for i in it['stack']]
-                if not 2 <= len(st) <= 3:
-                    raise ValueError('В стопке должно быть 2–3 картинки')
+                if not 2 <= len(st) <= 40:
+                    raise ValueError('В колонке должно быть от 2 до 40 картинок')
                 row.append({'stack': st})
             else:
                 row.append(clean_image(it))
