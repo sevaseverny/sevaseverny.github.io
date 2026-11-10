@@ -85,13 +85,6 @@
   ],
   [
    {
-    "src": "videos/ASTRA_logo_flower_0001-0110.mp4",
-    "w": 1920,
-    "h": 1080
-   }
-  ],
-  [
-   {
     "src": "images/620493_421215277924141_1899558080_o.jpg",
     "w": 1424,
     "h": 1100,
@@ -605,6 +598,20 @@
   ],
   [
    {
+    "src": "images/1926129_808954319150233_8908992175813248412_o_2.jpg",
+    "w": 1296,
+    "h": 1125,
+    "id": "mga-flyer"
+   },
+   {
+    "src": "images/10873485_809506809094984_7702121551621524239_o.jpg",
+    "w": 1346,
+    "h": 1000,
+    "id": "mga-vc"
+   }
+  ],
+  [
+   {
     "src": "images/mp-main.jpg",
     "w": 1600,
     "h": 3930,
@@ -631,20 +638,6 @@
       "id": "mp-three"
      }
     ]
-   }
-  ],
-  [
-   {
-    "src": "images/1926129_808954319150233_8908992175813248412_o_2.jpg",
-    "w": 1296,
-    "h": 1125,
-    "id": "mga-flyer"
-   },
-   {
-    "src": "images/10873485_809506809094984_7702121551621524239_o.jpg",
-    "w": 1346,
-    "h": 1000,
-    "id": "mga-vc"
    }
   ],
   [
@@ -677,27 +670,6 @@
   ],
   [
    {
-    "stack": [
-     {
-      "src": "images/bird-fish.jpg",
-      "w": 2101,
-      "h": 2101
-     },
-     {
-      "src": "images/lighthouses.jpg",
-      "w": 1430,
-      "h": 2088
-     }
-    ]
-   },
-   {
-    "src": "images/face-coords.jpg",
-    "w": 2911,
-    "h": 3916
-   }
-  ],
-  [
-   {
     "src": "images/bansys-w.jpg",
     "w": 1566,
     "h": 1080,
@@ -726,16 +698,23 @@
   ],
   [
    {
-    "src": "images/1010786_546929775352690_551690113_n.jpg",
-    "w": 960,
-    "h": 768,
-    "id": "kassa"
+    "stack": [
+     {
+      "src": "images/bird-fish.jpg",
+      "w": 2101,
+      "h": 2101
+     },
+     {
+      "src": "images/lighthouses.jpg",
+      "w": 1430,
+      "h": 2088
+     }
+    ]
    },
    {
-    "src": "images/marykay.jpg",
-    "w": 1050,
-    "h": 743,
-    "id": "marykay"
+    "src": "images/face-coords.jpg",
+    "w": 2911,
+    "h": 3916
    }
   ],
   [
@@ -756,6 +735,20 @@
     "w": 795,
     "h": 924,
     "id": "fm"
+   }
+  ],
+  [
+   {
+    "src": "images/1010786_546929775352690_551690113_n.jpg",
+    "w": 960,
+    "h": 768,
+    "id": "kassa"
+   },
+   {
+    "src": "images/marykay.jpg",
+    "w": 1050,
+    "h": 743,
+    "id": "marykay"
    }
   ],
   [
@@ -794,15 +787,15 @@
   ],
   [
    {
+    "src": "images/sem.jpg",
+    "w": 1262,
+    "h": 1211
+   },
+   {
     "src": "images/11075028_859979564047708_4860361396274222371_n.jpg",
     "w": 631,
     "h": 631,
     "id": "aleatory"
-   },
-   {
-    "src": "images/sem.jpg",
-    "w": 1262,
-    "h": 1211
    }
   ],
   [
@@ -999,6 +992,14 @@
   ],
   [
    {
+    "src": "images/armenian_temple.jpg",
+    "w": 2200,
+    "h": 1167,
+    "id": "alma"
+   }
+  ],
+  [
+   {
     "src": "images/vts_vc.jpg",
     "w": 1200,
     "h": 800,
@@ -1023,14 +1024,6 @@
     "w": 1174,
     "h": 1000,
     "id": "zhivoi"
-   }
-  ],
-  [
-   {
-    "src": "images/armenian_temple.jpg",
-    "w": 2200,
-    "h": 1167,
-    "id": "alma"
    }
   ],
   [
@@ -1104,6 +1097,13 @@
     "w": 1057,
     "h": 700,
     "id": "unfinished-logo"
+   }
+  ],
+  [
+   {
+    "src": "videos/ASTRA_logo_flower_0001-0110.mp4",
+    "w": 1920,
+    "h": 1080
    }
   ]
  ]
