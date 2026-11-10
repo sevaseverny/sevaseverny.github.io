@@ -64,6 +64,13 @@
   ],
   [
    {
+    "src": "images/calendar-prepress-01.jpg",
+    "w": 3626,
+    "h": 2599
+   }
+  ],
+  [
+   {
     "src": "images/12304007_972112062834457_5004154928237740975_o-crop-u8759.jpg",
     "w": 974,
     "h": 947,
@@ -74,6 +81,13 @@
     "w": 1315,
     "h": 1315,
     "id": "karavan"
+   }
+  ],
+  [
+   {
+    "src": "videos/ASTRA_logo_flower_0001-0110.mp4",
+    "w": 1920,
+    "h": 1080
    }
   ],
   [
@@ -214,6 +228,30 @@
   ],
   [
    {
+    "src": "images/3-copy-3-3x.png",
+    "w": 1787,
+    "h": 2527
+   },
+   {
+    "src": "images/3-copy-12-3x.png",
+    "w": 1787,
+    "h": 2527
+   },
+   {
+    "src": "images/horse-2.jpg",
+    "w": 1797,
+    "h": 2000
+   }
+  ],
+  [
+   {
+    "src": "images/untitled22.jpg",
+    "w": 3840,
+    "h": 2160
+   }
+  ],
+  [
+   {
     "src": "images/416171_412690002110002_1903079004_o.jpg",
     "w": 1500,
     "h": 1000,
@@ -252,6 +290,18 @@
   ],
   [
    {
+    "src": "images/screen-06.jpg",
+    "w": 4726,
+    "h": 2658
+   },
+   {
+    "src": "images/Frame-27.png",
+    "w": 1024,
+    "h": 1024
+   }
+  ],
+  [
+   {
     "src": "images/an-portfolio.jpg",
     "w": 1884,
     "h": 576,
@@ -286,6 +336,18 @@
   ],
   [
    {
+    "src": "images/333full.jpg",
+    "w": 3500,
+    "h": 1700
+   },
+   {
+    "src": "images/Screenshot-2026-11-10-at-15.59.09.png",
+    "w": 2069,
+    "h": 1464
+   }
+  ],
+  [
+   {
     "src": "images/ae.jpg",
     "w": 2000,
     "h": 859,
@@ -314,10 +376,23 @@
   ],
   [
    {
-    "src": "images/10688472_808508075861524_7575520668883397175_o.jpg",
-    "w": 2048,
-    "h": 958,
-    "id": "gorachudes"
+    "src": "images/image.png",
+    "w": 1920,
+    "h": 590
+   }
+  ],
+  [
+   {
+    "src": "images/0029.png",
+    "w": 1200,
+    "h": 1200
+   }
+  ],
+  [
+   {
+    "src": "images/invite_sep2026.png",
+    "w": 4096,
+    "h": 4096
    }
   ],
   [
@@ -602,6 +677,27 @@
   ],
   [
    {
+    "stack": [
+     {
+      "src": "images/bird-fish.png",
+      "w": 2101,
+      "h": 2101
+     },
+     {
+      "src": "images/lighthouses.png",
+      "w": 1430,
+      "h": 2088
+     }
+    ]
+   },
+   {
+    "src": "images/face-coords.png",
+    "w": 2911,
+    "h": 3916
+   }
+  ],
+  [
+   {
     "src": "images/bansys-w.jpg",
     "w": 1566,
     "h": 1080,
@@ -880,6 +976,30 @@
   ],
   [
    {
+    "src": "images/Frame-54.png",
+    "w": 2400,
+    "h": 200
+   }
+  ],
+  [
+   {
+    "src": "images/Frame-244-3.png",
+    "w": 800,
+    "h": 800
+   },
+   {
+    "src": "images/Frame-258-2.png",
+    "w": 800,
+    "h": 800
+   },
+   {
+    "src": "images/Frame-242-3.png",
+    "w": 800,
+    "h": 800
+   }
+  ],
+  [
+   {
     "src": "images/vts_vc.jpg",
     "w": 1200,
     "h": 800,
@@ -912,6 +1032,13 @@
     "w": 2200,
     "h": 1167,
     "id": "alma"
+   }
+  ],
+  [
+   {
+    "src": "images/wokashi_square-2.png",
+    "w": 4000,
+    "h": 2468
    }
   ],
   [
