@@ -8,16 +8,11 @@ html:not([data-scroll='0']) #contacts {
   left: 5vh;
 }
 
-html:not([data-scroll='0']) #logoblock {
-  width: 10vh;
-  height: 16vh;
-  top: 3vh;
-  right: 3vh;
-}
-
-html:not([data-scroll='0']) #logo {
-  width: 10vh;
-  height: 16vh;
+/* Логотип: блок остаётся большим, каждая часть сама "улетает" в маленькое
+   положение (сдвиг 2vh/3vh и масштаб 0.5 от правого верхнего угла).
+   1vh = 1/0.5226 ед. SVG, поэтому 2vh = 3.827, 3vh = 5.74. */
+html:not([data-scroll='0']) #logo path {
+  transform: translate(3.827px, -5.74px) scale(0.5);
 }
 
 html:not([data-scroll='0']) #first {

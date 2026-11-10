@@ -50,10 +50,15 @@
 }
 
 #logo {
-  object-fit: contain;
+  display: block;
   width: 20vh;
   height: 32vh;
-  transition: all 0.5s ease-in-out;
+}
+
+#logo path {
+  transform-box: view-box;
+  transform-origin: 100% 0;
+  transition: transform 0.5s cubic-bezier(0.45, 0, 0.2, 1) var(--d, 0s);
 }
 
 #first {
