@@ -14,6 +14,8 @@ NL = '\r\n'
 def pct(x): return ('%.2f' % x).rstrip('0').rstrip('.')
 
 def img_html(it, style, ind):
+    if it['src'].startswith('videos/'):   # зацикленное видео без звука, не входит в лайтбокс
+        return '%s<div class="vwrap" style="%s"><video src="/%s" autoplay loop muted playsinline preload="auto" disablepictureinpicture></video></div>' % (ind, style, it['src'])
     idattr = ' id="%s"' % it['id'] if it.get('id') else ''
     return '%s<a%s rel="fb_group" href="/%s" style="%s"><img class="image" src="/%s"></a>' % (ind, idattr, it['src'], style, it['src'])
 

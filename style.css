@@ -136,3 +136,8 @@ a img {
 #fancybox-outer {
   background: #000;
 }
+
+/* зацикленное видео в блоке: ведёт себя как картинка, но без лайтбокса */
+.vwrap { display: flex; }
+.vwrap video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.vcontainer .vwrap { width: 100%; }

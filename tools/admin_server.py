@@ -21,12 +21,14 @@ CONFIG = os.environ.get('ADMIN_CONFIG') or os.path.join(ROOT, 'admin.config.json
 DATA = os.path.join(ROOT, 'data', 'portfolio.json')
 BACKUPS = os.path.join(ROOT, 'data', 'backups')
 IMAGES = os.path.join(ROOT, 'images')
+VIDEOS = os.path.join(ROOT, 'videos')
 JPEG_QUALITY = 77
 MAX_UPLOAD = 80 * 1024 * 1024
 MAX_JSON = 2 * 1024 * 1024
 SESSION_TTL = 12 * 3600
 IMG_EXT = {'.jpg', '.jpeg', '.png', '.gif', '.webp'}
-SRC_RE = re.compile(r'^images/[A-Za-z0-9._-]+$')
+VID_EXT = {'.mp4'}
+SRC_RE = re.compile(r'^(images|videos)/[A-Za-z0-9._-]+$')
 
 sessions = {}            # token -> expires
 fails = {}               # ip -> [timestamps]
@@ -103,16 +105,74 @@ def store_image(name, data):
     return {'src': 'images/' + fname, 'w': w, 'h': h, 'bytes': os.path.getsize(path)}
 
 
+# ---------- видео (mp4 кладём как есть, размеры читаем из заголовка) ----------
+def _boxes(f, start, end):
+    pos = start
+    while pos + 8 <= end:
+        f.seek(pos); hdr = f.read(8)
+        size = int.from_bytes(hdr[:4], 'big'); typ = hdr[4:8]; hl = 8
+        if size == 1:
+            size = int.from_bytes(f.read(8), 'big'); hl = 16
+        elif size == 0:
+            size = end - pos
+        if size < hl:
+            return
+        yield typ, pos + hl, min(pos + size, end)
+        pos += size
+
+def mp4_dims(path):
+    """Ширина/высота первой видеодорожки с учётом поворота (из tkhd)."""
+    with open(path, 'rb') as f:
+        end = os.path.getsize(path)
+        for t, s, e in _boxes(f, 0, end):
+            if t != b'moov':
+                continue
+            for t2, s2, e2 in _boxes(f, s, e):
+                if t2 != b'trak':
+                    continue
+                for t3, s3, e3 in _boxes(f, s2, e2):
+                    if t3 != b'tkhd':
+                        continue
+                    f.seek(s3); v = f.read(1)[0]
+                    f.seek(s3 + (52 if v == 1 else 40))
+                    m = [int.from_bytes(f.read(4), 'big', signed=True) for _ in range(9)]
+                    w = int.from_bytes(f.read(4), 'big') >> 16; h = int.from_bytes(f.read(4), 'big') >> 16
+                    if w and h:
+                        if m[0] == 0 and m[4] == 0:
+                            w, h = h, w
+                        return w, h
+    raise ValueError('Не удалось определить размер видео (нужен обычный mp4 H.264)')
+
+def store_video(name, data):
+    if data[4:8] != b'ftyp':
+        raise ValueError('Файл не похож на mp4')
+    base = re.sub(r'[^A-Za-z0-9._-]+', '-', os.path.splitext(os.path.basename(name or 'video'))[0]).strip('.-_') or 'video'
+    os.makedirs(VIDEOS, exist_ok=True)
+    n, cand = 1, base + '.mp4'
+    while os.path.exists(os.path.join(VIDEOS, cand)):
+        n += 1; cand = '%s-%d.mp4' % (base, n)
+    path = os.path.join(VIDEOS, cand)
+    with open(path, 'wb') as f:
+        f.write(data)
+    try:
+        w, h = mp4_dims(path)
+    except Exception:
+        os.remove(path); raise
+    return {'src': 'videos/' + cand, 'w': w, 'h': h, 'bytes': len(data), 'video': True}
+
+
 # ---------- данные ----------
 def clean_image(it):
     if not isinstance(it, dict) or not isinstance(it.get('src'), str) or not SRC_RE.match(it['src']):
         raise ValueError('Некорректный путь картинки')
-    if os.path.splitext(it['src'])[1].lower() not in IMG_EXT:
-        raise ValueError('Некорректный тип картинки')
+    ext = os.path.splitext(it['src'])[1].lower()
+    video = it['src'].startswith('videos/')
+    if ext not in (VID_EXT if video else IMG_EXT) or (ext in VID_EXT) != video:
+        raise ValueError('Некорректный тип файла')
     path = os.path.join(ROOT, it['src'])
     if not os.path.isfile(path):
         raise ValueError('Нет файла ' + it['src'])
-    w, h = img_dims(path)
+    w, h = mp4_dims(path) if video else img_dims(path)
     out = {'src': it['src'], 'w': w, 'h': h}
     if isinstance(it.get('id'), str) and re.match(r'^[A-Za-z][A-Za-z0-9_-]*$', it['id']):
         out['id'] = it['id']
@@ -286,6 +346,8 @@ class Handler(SimpleHTTPRequestHandler):
 
             if path == '/api/upload' and method == 'POST':
                 name = parse_qs(p.query).get('name', ['image.jpg'])[0]
+                if os.path.splitext(name)[1].lower() in VID_EXT:
+                    return self.json(store_video(name, self.body(MAX_UPLOAD)))
                 return self.json(store_image(name, self.body(MAX_UPLOAD)))
 
             return self.json({'error': 'not found'}, 404)

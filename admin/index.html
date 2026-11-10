@@ -58,7 +58,8 @@
   .bi { color: var(--dim); font-size: 12px; margin-right: auto; }
   .prev { display: flex; width: 100%; background: #000; border-radius: 0 0 8px 8px; overflow: hidden; }
   .unit { position: relative; display: flex; flex-direction: column; min-width: 0; cursor: grab; }
-  .unit img { display: block; width: 100%; object-fit: cover; user-select: none; -webkit-user-drag: none; }
+  .unit img, .unit video { display: block; width: 100%; object-fit: cover; user-select: none; -webkit-user-drag: none; }
+  .unit video { pointer-events: none; }
   .unit.drop-before::before, .unit.drop-after::after { content: ""; position: absolute; top: 0; bottom: 0; width: 4px; background: var(--accent); z-index: 3; }
   .unit.drop-before::before { left: 0; } .unit.drop-after::after { right: 0; }
   .cell { position: relative; }
@@ -118,12 +119,12 @@
       </div>
       <div id="rows" class="rows"></div>
       <div class="blocks-top" style="margin-top:14px"><button id="newBottom">+ Новый блок в конец</button></div>
-      <div class="hint">В блоке любое число колонок, в колонке любое число картинок одна над другой. Высота и ширина считаются автоматически: колонки одной высоты, блок на всю ширину сайта. Картинку перетаскивают на край другой картинки (новая колонка рядом) или на её верхнюю/нижнюю половину (в колонку над ней или под ней); колонку целиком — за метку «колонка». «+ в колонку» появляется при наведении. Картинку (или колонку, или целый блок) можно бросить в зазор между блоками: получится новый блок на этом месте. Файлы можно бросать прямо на блок или в зазор. JPG сжимаются с качеством 77.</div>
+      <div class="hint">В блоке любое число колонок, в колонке любое число картинок одна над другой. Высота и ширина считаются автоматически: колонки одной высоты, блок на всю ширину сайта. Картинку перетаскивают на край другой картинки (новая колонка рядом) или на её верхнюю/нижнюю половину (в колонку над ней или под ней); колонку целиком — за метку «колонка». «+ в колонку» появляется при наведении. Картинку (или колонку, или целый блок) можно бросить в зазор между блоками: получится новый блок на этом месте. Файлы можно бросать прямо на блок или в зазор. JPG сжимаются с качеством 77. Видео: только mp4 (H.264), кладётся как есть (до 80 МБ), на сайте играет по кругу без звука.</div>
     </section>
   </main>
 </div>
 
-<input id="filePick" type="file" accept="image/jpeg,image/png,image/gif,image/webp" multiple>
+<input id="filePick" type="file" accept="image/jpeg,image/png,image/gif,image/webp,video/mp4" multiple>
 <div id="toast" hidden></div>
 
 <script>
@@ -135,6 +136,7 @@ const CHUNK = 3;   // по сколько картинок раскладыва�
 let S = null, dirty = false, drag = null, pickFor = null;
 
 /* ---------- utils ---------- */
+const isVid = im => /\.mp4$/i.test(im.src);
 const asp = u => u.stack ? 1 / u.stack.reduce((s, i) => s + i.h / i.w, 0) : u.w / u.h;
 const pct = x => (+x.toFixed(2)).toString();
 function el(tag, attrs, ...kids) {
@@ -255,8 +257,12 @@ function renderRows() {
 }
 function cell(im, onRemove, k) {
   const c = el('div', { class: 'cell', draggable: k != null ? 'true' : false, 'data-k': k },
-    el('img', { src: '/' + im.src, alt: '', draggable: 'false', loading: 'lazy', style: 'aspect-ratio:' + im.w + '/' + im.h, title: im.src.replace('images/', '') }),
+    isVid(im)
+      ? el('video', { src: '/' + im.src, muted: true, loop: true, autoplay: true, playsinline: true, preload: 'metadata', style: 'aspect-ratio:' + im.w + '/' + im.h })
+      : el('img', { src: '/' + im.src, alt: '', draggable: 'false', loading: 'lazy', style: 'aspect-ratio:' + im.w + '/' + im.h, title: im.src.replace('images/', '') }),
+    isVid(im) ? el('span', { class: 'tag', style: 'top:auto;bottom:6px' }, '▶ видео') : null,
     el('button', { class: 'x', title: 'Убрать из блока', 'aria-label': 'Убрать картинку', onclick: ev => { ev.stopPropagation(); onRemove(); } }, '✕'));
+  c.querySelectorAll('video').forEach(v => { v.muted = true; v.play().catch(() => {}); });
   c._im = im; return c;
 }
 function removeImage(ri, ui, k) {
@@ -404,8 +410,8 @@ async function upload(file) {
 }
 let busy = false;
 async function addFiles(files, intoRow, insertAt, afterImg) {
-  files = files.filter(f => /^image\//.test(f.type) || /\.(jpe?g|png|gif|webp)$/i.test(f.name));
-  if (!files.length || busy) { if (!files.length) toast('Нужны изображения', true); return; }
+  files = files.filter(f => /^image\//.test(f.type) || /\.(jpe?g|png|gif|webp|mp4)$/i.test(f.name));
+  if (!files.length || busy) { if (!files.length) toast('Нужны изображения или mp4', true); return; }
   busy = true; const got = []; let from = 0, to = 0;
   try {
     for (let i = 0; i < files.length; i++) {
