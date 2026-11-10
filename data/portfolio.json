@@ -1,0 +1,984 @@
+{
+ "contacts": [
+  {
+   "text": "phone: +79262030114",
+   "href": "tel:+79262030114"
+  },
+  {
+   "text": "whatsapp: +79262030114",
+   "href": "https://wa.me/79262030114"
+  },
+  {
+   "text": "seva.severny@gmail.com",
+   "href": "mailto:seva.severny@gmail.com"
+  },
+  {
+   "text": "facebook: seva severny",
+   "href": "https://www.facebook.com/sevaseverny/"
+  },
+  {
+   "text": "telegram: @kapitanandaman",
+   "href": ""
+  }
+ ],
+ "rows": [
+  [
+   {
+    "stack": [
+     {
+      "src": "images/nasolovki_logo.jpg",
+      "w": 1000,
+      "h": 1442,
+      "id": "solovki-logo"
+     },
+     {
+      "src": "images/horoshy.jpg",
+      "w": 1000,
+      "h": 563,
+      "id": "horoshy"
+     }
+    ]
+   },
+   {
+    "src": "images/Frame_200_1.jpg",
+    "w": 1000,
+    "h": 1955,
+    "id": "solovki-site"
+   }
+  ],
+  [
+   {
+    "src": "images/331282_419913418054327_1619716036_o.jpg",
+    "w": 1680,
+    "h": 1200,
+    "id": "rm-magazine1"
+   }
+  ],
+  [
+   {
+    "src": "images/333018_419922008053468_8413952_o.jpg",
+    "w": 1680,
+    "h": 1200,
+    "id": "rm-magazine2"
+   }
+  ],
+  [
+   {
+    "src": "images/12304007_972112062834457_5004154928237740975_o-crop-u8759.jpg",
+    "w": 974,
+    "h": 947,
+    "id": "cicerino"
+   },
+   {
+    "src": "images/karavan_logo_1.jpg",
+    "w": 1315,
+    "h": 1315,
+    "id": "karavan"
+   }
+  ],
+  [
+   {
+    "src": "images/620493_421215277924141_1899558080_o.jpg",
+    "w": 1424,
+    "h": 1100,
+    "id": "rm-poster"
+   },
+   {
+    "src": "images/883538_609395012439499_1792487384_o.jpg",
+    "w": 1604,
+    "h": 1276,
+    "id": "romanov"
+   }
+  ],
+  [
+   {
+    "src": "images/nemo.jpg",
+    "w": 1500,
+    "h": 590,
+    "id": "nemo"
+   },
+   {
+    "src": "images/avene.jpg",
+    "w": 800,
+    "h": 399,
+    "id": "avene"
+   }
+  ],
+  [
+   {
+    "stack": [
+     {
+      "src": "images/ss_vc_1.jpg",
+      "w": 1002,
+      "h": 637,
+      "id": "ss-vc1"
+     },
+     {
+      "src": "images/ss_vc_2.jpg",
+      "w": 1002,
+      "h": 637,
+      "id": "ss-vc2"
+     }
+    ]
+   },
+   {
+    "src": "images/sonata_6x3_podacha.jpg",
+    "w": 1500,
+    "h": 1126,
+    "id": "ss-billboard"
+   }
+  ],
+  [
+   {
+    "src": "images/shvidkatsa.jpg",
+    "w": 2000,
+    "h": 518,
+    "id": "shvidkatsa"
+   },
+   {
+    "src": "images/03_sticker.jpg",
+    "w": 500,
+    "h": 500,
+    "id": "pizzaslime"
+   }
+  ],
+  [
+   {
+    "src": "images/screenshot2017-09-13at205259.jpg",
+    "w": 1094,
+    "h": 964,
+    "id": "icomos"
+   },
+   {
+    "src": "images/woodapki-2017-ed2.jpg",
+    "w": 1600,
+    "h": 900,
+    "id": "woodapki"
+   }
+  ],
+  [
+   {
+    "src": "images/red-boobs.jpg",
+    "w": 1600,
+    "h": 900,
+    "id": "boobochki"
+   },
+   {
+    "src": "images/10848899_808566822522316_277028924732238915_o.jpg",
+    "w": 1500,
+    "h": 1000,
+    "id": "karpachev"
+   }
+  ],
+  [
+   {
+    "src": "images/seedsbaba_logo_2.jpg",
+    "w": 849,
+    "h": 1427,
+    "id": "seedsbaba"
+   },
+   {
+    "src": "images/1015829_547511551961179_95934924_o.jpg",
+    "w": 1370,
+    "h": 890,
+    "id": "suhar"
+   }
+  ],
+  [
+   {
+    "src": "images/ff-1200x628.jpg",
+    "w": 1200,
+    "h": 628,
+    "id": "furanflex"
+   },
+   {
+    "src": "images/10265450_809013492477649_8511236792133163732_o-crop-u8852.jpg",
+    "w": 750,
+    "h": 869,
+    "id": "sargasso"
+   }
+  ],
+  [
+   {
+    "src": "images/10869342_808697659175899_8996996688880764394_o.jpg",
+    "w": 1304,
+    "h": 1188,
+    "id": "bike1"
+   },
+   {
+    "src": "images/dsc_4192-crop-u13951.jpg",
+    "w": 1051,
+    "h": 791,
+    "id": "bike2"
+   }
+  ],
+  [
+   {
+    "src": "images/416171_412690002110002_1903079004_o.jpg",
+    "w": 1500,
+    "h": 1000,
+    "id": "dok-building"
+   },
+   {
+    "stack": [
+     {
+      "src": "images/10841897_809019975810334_7341298374157749700_o.jpg",
+      "w": 960,
+      "h": 640,
+      "id": "dok-billboard"
+     },
+     {
+      "src": "images/411431_412686262110376_302595337_o.jpg",
+      "w": 960,
+      "h": 640,
+      "id": "dok-maket"
+     }
+    ]
+   }
+  ],
+  [
+   {
+    "src": "images/nn-portfolio.jpg",
+    "w": 1000,
+    "h": 1433,
+    "id": "nn-surface"
+   },
+   {
+    "src": "images/dacc_logo_mockup_2.jpg",
+    "w": 1300,
+    "h": 803,
+    "id": "daccordo"
+   }
+  ],
+  [
+   {
+    "src": "images/an-portfolio.jpg",
+    "w": 1884,
+    "h": 576,
+    "id": "notbek"
+   },
+   {
+    "src": "images/smzs-sticker_2.jpg",
+    "w": 698,
+    "h": 698,
+    "id": "smzs"
+   }
+  ],
+  [
+   {
+    "src": "images/vilovit.jpg",
+    "w": 566,
+    "h": 1518,
+    "id": "vilovit"
+   },
+   {
+    "src": "images/vots_electroinvite_eng_lastestest.jpg",
+    "w": 850,
+    "h": 1000,
+    "id": "victory-flyer"
+   },
+   {
+    "src": "images/full_medium_2.jpg",
+    "w": 1000,
+    "h": 1000,
+    "id": "victory-3d"
+   }
+  ],
+  [
+   {
+    "src": "images/ae.jpg",
+    "w": 2000,
+    "h": 859,
+    "id": "ae"
+   },
+   {
+    "src": "images/profiteroles_sticker_2.jpg",
+    "w": 1000,
+    "h": 1000,
+    "id": "profi"
+   }
+  ],
+  [
+   {
+    "src": "images/nika.jpg",
+    "w": 800,
+    "h": 1035,
+    "id": "nika"
+   },
+   {
+    "src": "images/castelmonte-2016.jpg",
+    "w": 1800,
+    "h": 1173,
+    "id": "castelmonte"
+   }
+  ],
+  [
+   {
+    "src": "images/10688472_808508075861524_7575520668883397175_o.jpg",
+    "w": 2048,
+    "h": 958,
+    "id": "gorachudes"
+   }
+  ],
+  [
+   {
+    "src": "images/473569_412437138801955_2028424418_o_3.jpg",
+    "w": 1407,
+    "h": 1200,
+    "id": "puz-poster"
+   },
+   {
+    "src": "images/469384_412368985475437_596138886_o.jpg",
+    "w": 1176,
+    "h": 1278,
+    "id": "puz-newspaper"
+   }
+  ],
+  [
+   {
+    "src": "images/1598829_808494872529511_4477400698911632310_o_1.jpg",
+    "w": 1500,
+    "h": 978,
+    "id": "tgv"
+   },
+   {
+    "src": "images/202782_422738124438523_123891487_o_2.jpg",
+    "w": 745,
+    "h": 775,
+    "id": "lansada"
+   }
+  ],
+  [
+   {
+    "src": "images/keylight_logo2_1.jpg",
+    "w": 1500,
+    "h": 914,
+    "id": "keylight"
+   },
+   {
+    "src": "images/palto.jpg",
+    "w": 1000,
+    "h": 721,
+    "id": "palto"
+   }
+  ],
+  [
+   {
+    "src": "images/10916345_824323640946634_4397479085671231038_o.jpg",
+    "w": 1500,
+    "h": 750,
+    "id": "zabor"
+   },
+   {
+    "src": "images/avanta_vc-new_2.jpg",
+    "w": 749,
+    "h": 879,
+    "id": "avanta"
+   }
+  ],
+  [
+   {
+    "src": "images/11942302_937193022993028_7112610017314924268_o.jpg",
+    "w": 800,
+    "h": 800,
+    "id": "suhanovo"
+   },
+   {
+    "src": "images/177577_408340019211667_774263746_o.jpg",
+    "w": 1410,
+    "h": 878,
+    "id": "miroir"
+   }
+  ],
+  [
+   {
+    "src": "images/text-city-final.jpg",
+    "w": 1140,
+    "h": 600,
+    "id": "gorod-text"
+   },
+   {
+    "src": "images/10856624_808635169182148_4950324750297618051_o.jpg",
+    "w": 1000,
+    "h": 1000,
+    "id": "zima"
+   }
+  ],
+  [
+   {
+    "src": "images/277877_412607502118252_7464112_o.jpg",
+    "w": 1221,
+    "h": 1000,
+    "id": "em-poster1"
+   },
+   {
+    "src": "images/615188_412624498783219_441015673_o.jpg",
+    "w": 1221,
+    "h": 1000,
+    "id": "em-poster2"
+   }
+  ],
+  [
+   {
+    "src": "images/471155_412610045451331_1765118730_o.jpg",
+    "w": 1440,
+    "h": 793,
+    "id": "em-magazine1"
+   },
+   {
+    "src": "images/616415_412616595450676_921230742_o.jpg",
+    "w": 1440,
+    "h": 793,
+    "id": "em-magazine2"
+   }
+  ],
+  [
+   {
+    "stack": [
+     {
+      "src": "images/outside-building-ed.jpg",
+      "w": 1309,
+      "h": 982,
+      "id": "chinastraat-photo"
+     },
+     {
+      "src": "images/untitled9.jpg",
+      "w": 960,
+      "h": 600,
+      "id": "chinastraat-3d1"
+     }
+    ]
+   },
+   {
+    "stack": [
+     {
+      "src": "images/untitled8.jpg",
+      "w": 1000,
+      "h": 1000,
+      "id": "chinastraat-3d2"
+     },
+     {
+      "src": "images/untitled11.jpg",
+      "w": 1000,
+      "h": 1000,
+      "id": "chinastraat-3d3"
+     },
+     {
+      "src": "images/untitled92.jpg",
+      "w": 1000,
+      "h": 1000,
+      "id": "chinastraat-3d4"
+     }
+    ]
+   }
+  ],
+  [
+   {
+    "src": "images/339368_412470208798648_1932811482_o.jpg",
+    "w": 1264,
+    "h": 948,
+    "id": "next"
+   },
+   {
+    "src": "images/412521_412588592120143_1424137023_o.jpg",
+    "w": 1333,
+    "h": 1000,
+    "id": "kaspers"
+   }
+  ],
+  [
+   {
+    "src": "images/10845859_813994431979555_8833163506989367693_o.jpg",
+    "w": 1440,
+    "h": 1080,
+    "id": "scic-magazine"
+   },
+   {
+    "src": "images/loive-portfolio.jpg",
+    "w": 1000,
+    "h": 722,
+    "id": "loive"
+   }
+  ],
+  [
+   {
+    "src": "images/big-akros.jpg",
+    "w": 1800,
+    "h": 1465,
+    "id": "akros-choco"
+   },
+   {
+    "src": "images/kk-logo_2.jpg",
+    "w": 838,
+    "h": 1335,
+    "id": "karel"
+   }
+  ],
+  [
+   {
+    "src": "images/robo.jpg",
+    "w": 1000,
+    "h": 1000,
+    "id": "robo"
+   },
+   {
+    "src": "images/led.jpg",
+    "w": 1000,
+    "h": 1000,
+    "id": "led"
+   }
+  ],
+  [
+   {
+    "src": "images/mp-main.jpg",
+    "w": 1600,
+    "h": 3930,
+    "id": "mp-main"
+   },
+   {
+    "stack": [
+     {
+      "src": "images/mp-art.jpg",
+      "w": 1891,
+      "h": 860,
+      "id": "mp-art"
+     },
+     {
+      "src": "images/mp-prod.jpg",
+      "w": 1891,
+      "h": 860,
+      "id": "mp-prod"
+     },
+     {
+      "src": "images/mp-three.jpg",
+      "w": 2336,
+      "h": 1832,
+      "id": "mp-three"
+     }
+    ]
+   }
+  ],
+  [
+   {
+    "src": "images/1926129_808954319150233_8908992175813248412_o_2.jpg",
+    "w": 1296,
+    "h": 1125,
+    "id": "mga-flyer"
+   },
+   {
+    "src": "images/10873485_809506809094984_7702121551621524239_o.jpg",
+    "w": 1346,
+    "h": 1000,
+    "id": "mga-vc"
+   }
+  ],
+  [
+   {
+    "src": "images/Untitled_3.jpg",
+    "w": 1600,
+    "h": 1200,
+    "id": "isht"
+   },
+   {
+    "src": "images/10620057_808709259174739_3050946333481451274_o-crop-u8725.jpg",
+    "w": 526,
+    "h": 868,
+    "id": "krivonosov"
+   }
+  ],
+  [
+   {
+    "src": "images/pw.jpg",
+    "w": 965,
+    "h": 964,
+    "id": "peter-wolf"
+   },
+   {
+    "src": "images/257829_422464217799247_71995817_o.jpg",
+    "w": 1500,
+    "h": 934,
+    "id": "alice-house"
+   }
+  ],
+  [
+   {
+    "src": "images/bansys-w.jpg",
+    "w": 1566,
+    "h": 1080,
+    "id": "bansys-w"
+   },
+   {
+    "src": "images/bansys-h.jpg",
+    "w": 1000,
+    "h": 1415,
+    "id": "bansys-h"
+   }
+  ],
+  [
+   {
+    "src": "images/_1-01.jpg",
+    "w": 2000,
+    "h": 2000,
+    "id": "spray"
+   },
+   {
+    "src": "images/Stitched-Edit2.jpg",
+    "w": 1540,
+    "h": 990,
+    "id": "marta"
+   }
+  ],
+  [
+   {
+    "src": "images/1010786_546929775352690_551690113_n.jpg",
+    "w": 960,
+    "h": 768,
+    "id": "kassa"
+   },
+   {
+    "src": "images/marykay.jpg",
+    "w": 1050,
+    "h": 743,
+    "id": "marykay"
+   }
+  ],
+  [
+   {
+    "src": "images/screenshot20170911at031249.jpg",
+    "w": 680,
+    "h": 619,
+    "id": "asm"
+   },
+   {
+    "src": "images/291617_404487842930218_1196795245_o-crop-u8720.jpg",
+    "w": 980,
+    "h": 1291,
+    "id": "sport-art"
+   },
+   {
+    "src": "images/10750010_808573339188331_7075744622694936479_o-crop-u8872.jpg",
+    "w": 795,
+    "h": 924,
+    "id": "fm"
+   }
+  ],
+  [
+   {
+    "stack": [
+     {
+      "src": "images/main-smalltop.jpg",
+      "w": 1000,
+      "h": 1206,
+      "id": "era-site"
+     },
+     {
+      "src": "images/pen-lux.jpg",
+      "w": 660,
+      "h": 660,
+      "id": "era-pen"
+     }
+    ]
+   },
+   {
+    "stack": [
+     {
+      "src": "images/untitled2.jpg",
+      "w": 660,
+      "h": 660,
+      "id": "era-usb"
+     },
+     {
+      "src": "images/znachok-s-omom.jpg",
+      "w": 1700,
+      "h": 1063,
+      "id": "era-znachok"
+     }
+    ]
+   }
+  ],
+  [
+   {
+    "src": "images/10818290_808694485842883_6975970858454122831_o.jpg",
+    "w": 1500,
+    "h": 1050,
+    "id": "foto-vetro"
+   },
+   {
+    "src": "images/11075028_859979564047708_4860361396274222371_n.jpg",
+    "w": 631,
+    "h": 631,
+    "id": "aleatory"
+   }
+  ],
+  [
+   {
+    "src": "images/starfit.jpg",
+    "w": 1100,
+    "h": 1476,
+    "id": "starfit"
+   },
+   {
+    "src": "images/xaos.jpg",
+    "w": 1100,
+    "h": 1476,
+    "id": "xaos"
+   }
+  ],
+  [
+   {
+    "src": "images/616747_412696202109382_2138738832_o.jpg",
+    "w": 1100,
+    "h": 1100,
+    "id": "doutrart"
+   },
+   {
+    "src": "images/905779_911185268927137_1903487339777151687_o.jpg",
+    "w": 1200,
+    "h": 900,
+    "id": "la"
+   }
+  ],
+  [
+   {
+    "src": "images/10860957_808506649195000_7269659041340602760_o.jpg",
+    "w": 1422,
+    "h": 948,
+    "id": "estetic"
+   },
+   {
+    "src": "images/neon.jpg",
+    "w": 1000,
+    "h": 986,
+    "id": "neon"
+   }
+  ],
+  [
+   {
+    "src": "images/vs_logo_1.jpg",
+    "w": 1600,
+    "h": 1028,
+    "id": "volen-logo"
+   },
+   {
+    "src": "images/sebezh_logo_1.jpg",
+    "w": 900,
+    "h": 1214,
+    "id": "sebezh"
+   }
+  ],
+  [
+   {
+    "src": "images/cg_2.jpg",
+    "w": 1680,
+    "h": 358,
+    "id": "cyberstars"
+   },
+   {
+    "src": "images/volen.jpg",
+    "w": 700,
+    "h": 759,
+    "id": "volen-chel"
+   }
+  ],
+  [
+   {
+    "src": "images/10636781_808613729184292_4952758089997644826_o.jpg",
+    "w": 1068,
+    "h": 683,
+    "id": "ml-logo"
+   },
+   {
+    "src": "images/10855109_808684879177177_7926078237895249417_o.jpg",
+    "w": 1278,
+    "h": 1025,
+    "id": "ml-3d"
+   }
+  ],
+  [
+   {
+    "src": "images/lt.jpg",
+    "w": 1261,
+    "h": 833,
+    "id": "lost-logo"
+   },
+   {
+    "src": "images/lt2-crop-u8936.jpg",
+    "w": 958,
+    "h": 636,
+    "id": "lost-photo"
+   }
+  ],
+  [
+   {
+    "src": "images/10636854_799388930106772_7686741449540275505_o.jpg",
+    "w": 1005,
+    "h": 1005,
+    "id": "sprimus-vc"
+   },
+   {
+    "src": "images/10380086_799389386773393_4390625858094357361_o.jpg",
+    "w": 530,
+    "h": 1005,
+    "id": "sprimus-3d"
+   },
+   {
+    "src": "images/untitled28_2.jpg",
+    "w": 700,
+    "h": 1000,
+    "id": "givitel-vita"
+   }
+  ],
+  [
+   {
+    "src": "images/1014789_547608861951448_701205944_o-crop-u8881.jpg",
+    "w": 1211,
+    "h": 757,
+    "id": "provansal"
+   },
+   {
+    "src": "images/10842002_808668522512146_4009350156621000667_o.jpg",
+    "w": 1458,
+    "h": 948,
+    "id": "premium-yachts"
+   }
+  ],
+  [
+   {
+    "src": "images/323213_408355275876808_2060900894_o.jpg",
+    "w": 1500,
+    "h": 934,
+    "id": "dana-gulsara"
+   },
+   {
+    "src": "images/15mm-1.jpg",
+    "w": 1200,
+    "h": 900,
+    "id": "chinastraat-bar"
+   }
+  ],
+  [
+   {
+    "src": "images/behind-water-drops-style.jpg",
+    "w": 1000,
+    "h": 652,
+    "id": "rosstin"
+   },
+   {
+    "src": "images/10655155_808513629194302_8051697237589758538_o.jpg",
+    "w": 1500,
+    "h": 617,
+    "id": "lighteffect"
+   }
+  ],
+  [
+   {
+    "src": "images/4y.jpg",
+    "w": 3000,
+    "h": 1687,
+    "id": "y4"
+   }
+  ],
+  [
+   {
+    "src": "images/vts_vc.jpg",
+    "w": 1200,
+    "h": 800,
+    "id": "vira"
+   },
+   {
+    "src": "images/10861125_808652609180404_3821933912007085682_o.jpg",
+    "w": 1500,
+    "h": 1000,
+    "id": "best-schools"
+   }
+  ],
+  [
+   {
+    "src": "images/alienstage-sm.jpg",
+    "w": 1920,
+    "h": 1080,
+    "id": "safari-3d"
+   },
+   {
+    "src": "images/1008537_547609815284686_1767882845_o.jpg",
+    "w": 1174,
+    "h": 1000,
+    "id": "zhivoi"
+   }
+  ],
+  [
+   {
+    "src": "images/armenian_temple.jpg",
+    "w": 2200,
+    "h": 1167,
+    "id": "alma"
+   }
+  ],
+  [
+   {
+    "src": "images/full14-FIN.jpg",
+    "w": 1200,
+    "h": 1683,
+    "id": "lost-map"
+   },
+   {
+    "stack": [
+     {
+      "src": "images/ZIL.jpg",
+      "w": 744,
+      "h": 744,
+      "id": "zil"
+     },
+     {
+      "src": "images/mj.jpg",
+      "w": 1000,
+      "h": 1000,
+      "id": "mj-choco"
+     }
+    ]
+   }
+  ],
+  [
+   {
+    "src": "images/untitled.jpg",
+    "w": 900,
+    "h": 900,
+    "id": "tooth"
+   },
+   {
+    "src": "images/four.jpg",
+    "w": 1500,
+    "h": 748,
+    "id": "teeth"
+   }
+  ],
+  [
+   {
+    "src": "images/HotFoil.jpg",
+    "w": 1000,
+    "h": 1000,
+    "id": "glory-gallery"
+   },
+   {
+    "src": "images/LAST001.jpg",
+    "w": 1778,
+    "h": 1000,
+    "id": "vardik-pres"
+   }
+  ],
+  [
+   {
+    "src": "images/5927324.jpg",
+    "w": 1600,
+    "h": 1000,
+    "id": "vansgarantholod"
+   },
+   {
+    "src": "images/Screen-Shot-2019-12-05.jpg",
+    "w": 1057,
+    "h": 700,
+    "id": "unfinished-logo"
+   }
+  ]
+ ]
+}
