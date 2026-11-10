@@ -43,7 +43,10 @@
 
   .blocks-top { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
   .blocks-top .sp { margin-left: auto; color: var(--dim); }
-  .rows { display: grid; gap: 14px; }
+  .rows { display: grid; gap: 0; }
+  .gap { height: 18px; border-radius: 4px; transition: background .1s; }
+  body.dragging .gap { background: rgba(79,140,255,.16); }
+  .gap.drop-gap { background: var(--accent) !important; }
   .block { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; position: relative; }
   .block.drop-above::before, .block.drop-below::after { content: ""; position: absolute; left: 0; right: 0; height: 3px; background: var(--accent); border-radius: 2px; }
   .block.drop-above::before { top: -9px; } .block.drop-below::after { bottom: -9px; }
@@ -115,7 +118,7 @@
       </div>
       <div id="rows" class="rows"></div>
       <div class="blocks-top" style="margin-top:14px"><button id="newBottom">+ Новый блок в конец</button></div>
-      <div class="hint">В блоке любое число колонок, в колонке любое число картинок одна над другой. Высота и ширина считаются автоматически: колонки одной высоты, блок на всю ширину сайта. Картинку перетаскивают на край другой картинки (новая колонка рядом) или на её верхнюю/нижнюю половину (в колонку над ней или под ней); колонку целиком — за метку «колонка». «+ в колонку» появляется при наведении. Файлы можно бросать прямо на блок. JPG сжимаются с качеством 77.</div>
+      <div class="hint">В блоке любое число колонок, в колонке любое число картинок одна над другой. Высота и ширина считаются автоматически: колонки одной высоты, блок на всю ширину сайта. Картинку перетаскивают на край другой картинки (новая колонка рядом) или на её верхнюю/нижнюю половину (в колонку над ней или под ней); колонку целиком — за метку «колонка». «+ в колонку» появляется при наведении. Картинку (или колонку, или целый блок) можно бросить в зазор между блоками: получится новый блок на этом месте. Файлы можно бросать прямо на блок или в зазор. JPG сжимаются с качеством 77.</div>
     </section>
   </main>
 </div>
@@ -243,8 +246,10 @@ function renderRows() {
         unit.append(el('button', { class: 'addcol', title: 'Добавить картинки в эту колонку (под последней)', onclick: ev => { ev.stopPropagation(); pick({ after: last }); } }, '+ в колонку'));
       prev.append(unit);
     });
+    box.append(el('div', { class: 'gap', 'data-at': ri, title: 'Сюда можно бросить картинку: получится новый блок' }));
     box.append(el('div', { class: 'block', 'data-ri': ri }, head, prev));
   });
+  box.append(el('div', { class: 'gap', 'data-at': S.rows.length, title: 'Сюда можно бросить картинку: получится новый блок' }));
 }
 function cell(im, onRemove, k) {
   const c = el('div', { class: 'cell', draggable: k != null ? 'true' : false, 'data-k': k },
@@ -265,7 +270,7 @@ function removeImage(ri, ui, k) {
 /* ---------- drag & drop ---------- */
 const rowsEl = $('#rows');
 const isFiles = e => e.dataTransfer && [...e.dataTransfer.types].includes('Files');
-function clearMarks() { document.querySelectorAll('.drop-above,.drop-below,.drop-before,.drop-after,.drop-up,.drop-down,.file-over').forEach(n => n.classList.remove('drop-above', 'drop-below', 'drop-before', 'drop-after', 'drop-up', 'drop-down', 'file-over')); }
+function clearMarks() { document.querySelectorAll('.drop-above,.drop-below,.drop-before,.drop-after,.drop-up,.drop-down,.file-over,.drop-gap').forEach(n => n.classList.remove('drop-above', 'drop-below', 'drop-before', 'drop-after', 'drop-up', 'drop-down', 'file-over', 'drop-gap')); }
 
 function locate(img) {
   for (let ri = 0; ri < S.rows.length; ri++) {
@@ -301,6 +306,14 @@ function dropTarget(block, bri, un, cl, e) {   // cl может быть пер�
   if (colOK && !items.includes(im)) { const after = fy > .5; return { img: im, mode: 'col', after, mark: cl, cls: after ? 'drop-down' : 'drop-up' }; }
   return null;
 }
+function applyGap(d, at) {   // картинка/колонка в зазор между блоками -> новый блок
+  const items = dragItems(d), srcRow = S.rows[d.ri], su = srcRow[d.ui], nr = [];
+  S.rows.splice(at, 0, nr);
+  if (d.kind === 'img') { su.stack.splice(d.k, 1); if (su.stack.length === 1) srcRow[d.ui] = su.stack[0]; }
+  else srcRow.splice(d.ui, 1);
+  nr.push(items.length > 1 ? { stack: items } : items[0]);
+  S.rows = S.rows.filter(r => r.length);
+}
 function applyDrop(d, t) {
   const items = dragItems(d), srcRow = S.rows[d.ri], su = srcRow[d.ui];
   if (items.includes(t.img)) return;
@@ -326,7 +339,13 @@ rowsEl.addEventListener('dragstart', e => {
 rowsEl.addEventListener('dragend', () => { drag = null; clearMarks(); document.body.classList.remove('dragging'); });
 rowsEl.addEventListener('dragover', e => {
   const block = e.target.closest('.block');
-  if (isFiles(e)) { if (block) { e.preventDefault(); clearMarks(); block.classList.add('file-over'); } return; }
+  const gap = e.target.closest('.gap');
+  if (isFiles(e)) {
+    if (gap) { e.preventDefault(); clearMarks(); gap.classList.add('drop-gap'); }
+    else if (block) { e.preventDefault(); clearMarks(); block.classList.add('file-over'); }
+    return;
+  }
+  if (drag && gap) { e.preventDefault(); clearMarks(); gap.classList.add('drop-gap'); drag.target = { mode: 'gap', at: +gap.dataset.at }; return; }
   if (!drag || !block) return;
   const bri = +block.dataset.ri;
   if (drag.kind === 'row') {
@@ -343,9 +362,20 @@ rowsEl.addEventListener('dragover', e => {
 rowsEl.addEventListener('dragleave', e => { if (!rowsEl.contains(e.relatedTarget)) clearMarks(); });
 rowsEl.addEventListener('drop', async e => {
   const block = e.target.closest('.block');
-  if (isFiles(e)) { e.preventDefault(); clearMarks(); if (block) addFiles([...e.dataTransfer.files], +block.dataset.ri); return; }
+  if (isFiles(e)) {
+    e.preventDefault(); clearMarks();
+    const g = e.target.closest('.gap');
+    if (g) addFiles([...e.dataTransfer.files], null, +g.dataset.at);
+    else if (block) addFiles([...e.dataTransfer.files], +block.dataset.ri);
+    return;
+  }
   if (!drag || !drag.target) return;
   e.preventDefault(); const d = drag, t = d.target; drag = null; clearMarks(); document.body.classList.remove('dragging');
+  if (t.mode === 'gap') {
+    if (d.kind === 'row') { const [r] = S.rows.splice(d.ri, 1); let at = t.at; if (d.ri < at) at--; S.rows.splice(at, 0, r); }
+    else applyGap(d, t.at);
+    commit(); return;
+  }
   if (d.kind === 'row') {
     const [r] = S.rows.splice(d.ri, 1); let to = t.ri + (t.after ? 1 : 0); if (d.ri < to) to--; S.rows.splice(to, 0, r);
   } else applyDrop(d, t);
