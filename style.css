@@ -51,6 +51,7 @@
 
 #logo {
   display: block;
+  overflow: visible;
   width: 20vh;
   height: 32vh;
 }
