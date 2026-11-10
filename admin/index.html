@@ -172,7 +172,9 @@ $('#loginForm').addEventListener('submit', async e => {
   e.preventDefault(); $('#loginErr').textContent = '';
   try {
     await api('/api/login', { method: 'POST', body: JSON.stringify({ password: $('#pw').value }) });
-    $('#pw').value = ''; await load();
+    $('#pw').value = '';
+    if (dirty && S) { $('#login').hidden = true; $('#app').hidden = false; render(); toast('Вход выполнен, ваши несохранённые правки на месте. Нажмите «Сохранить»'); }   // сессия истекла: правки не теряем
+    else await load();
   } catch (err) { $('#loginErr').textContent = err.message; }
 });
 $('#logout').addEventListener('click', async () => {
