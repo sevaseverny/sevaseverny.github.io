@@ -4,3 +4,7 @@ data/backups/
 data/*.tmp
 .claude/
 __pycache__/
+
+# админка только локально, на GitHub не выкладываем
+admin/
+tools/admin_server.py
