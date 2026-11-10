@@ -228,12 +228,12 @@
   ],
   [
    {
-    "src": "images/3-copy-3-3x.png",
+    "src": "images/3-copy-3-3x.jpg",
     "w": 1787,
     "h": 2527
    },
    {
-    "src": "images/3-copy-12-3x.png",
+    "src": "images/3-copy-12-3x.jpg",
     "w": 1787,
     "h": 2527
    },
@@ -341,7 +341,7 @@
     "h": 1700
    },
    {
-    "src": "images/Screenshot-2026-11-10-at-15.59.09.png",
+    "src": "images/Screenshot-2026-11-10-at-15.59.09.jpg",
     "w": 2069,
     "h": 1464
    }
@@ -376,21 +376,21 @@
   ],
   [
    {
-    "src": "images/image.png",
+    "src": "images/image-2.jpg",
     "w": 1920,
     "h": 590
    }
   ],
   [
    {
-    "src": "images/0029.png",
+    "src": "images/0029.jpg",
     "w": 1200,
     "h": 1200
    }
   ],
   [
    {
-    "src": "images/invite_sep2026.png",
+    "src": "images/invite_sep2026.jpg",
     "w": 4096,
     "h": 4096
    }
@@ -679,19 +679,19 @@
    {
     "stack": [
      {
-      "src": "images/bird-fish.png",
+      "src": "images/bird-fish.jpg",
       "w": 2101,
       "h": 2101
      },
      {
-      "src": "images/lighthouses.png",
+      "src": "images/lighthouses.jpg",
       "w": 1430,
       "h": 2088
      }
     ]
    },
    {
-    "src": "images/face-coords.png",
+    "src": "images/face-coords.jpg",
     "w": 2911,
     "h": 3916
    }
@@ -976,24 +976,24 @@
   ],
   [
    {
-    "src": "images/Frame-54.png",
+    "src": "images/Frame-54.jpg",
     "w": 2400,
     "h": 200
    }
   ],
   [
    {
-    "src": "images/Frame-244-3.png",
+    "src": "images/Frame-244-3.jpg",
     "w": 800,
     "h": 800
    },
    {
-    "src": "images/Frame-258-2.png",
+    "src": "images/Frame-258-2.jpg",
     "w": 800,
     "h": 800
    },
    {
-    "src": "images/Frame-242-3.png",
+    "src": "images/Frame-242-3.jpg",
     "w": 800,
     "h": 800
    }
@@ -1036,7 +1036,7 @@
   ],
   [
    {
-    "src": "images/wokashi_square-2.png",
+    "src": "images/wokashi_square-2.jpg",
     "w": 4000,
     "h": 2468
    }
