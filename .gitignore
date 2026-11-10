@@ -1,0 +1,6 @@
+.DS_Store
+admin.config.json
+data/backups/
+data/*.tmp
+.claude/
+__pycache__/
