@@ -63,7 +63,7 @@
   .cell:hover .x, .x:focus-visible { opacity: 1; }
   .x:hover { background: var(--danger); border-color: var(--danger); }
   .tag { position: absolute; left: 6px; top: 6px; font-size: 11px; padding: 1px 6px; border-radius: 4px; background: rgba(0,0,0,.65); color: #ddd; z-index: 2; pointer-events: none; }
-  .colh { position: absolute; left: 6px; top: 6px; font-size: 11px; padding: 1px 6px; border-radius: 4px; background: rgba(0,0,0,.65); color: #ddd; z-index: 2; cursor: grab; user-select: none; }
+  .colh { position: absolute; left: 6px; top: 6px; font-size: 13px; font-weight: 600; padding: 5px 12px; border-radius: 6px; background: var(--accent); color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.5); z-index: 2; cursor: grab; user-select: none; }
   .cell[draggable=true] { cursor: grab; }
   .cell.drop-up::before, .cell.drop-down::after { content: ""; position: absolute; left: 0; right: 0; height: 4px; background: var(--accent); z-index: 3; }
   .cell.drop-up::before { top: 0; } .cell.drop-down::after { bottom: 0; }
