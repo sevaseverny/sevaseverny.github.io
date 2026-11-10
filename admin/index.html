@@ -233,7 +233,7 @@ function renderRows() {
       el('button', { class: 'danger', onclick: () => { if (confirm('Удалить блок ' + (ri + 1) + '? Файлы картинок останутся в папке.')) { S.rows.splice(ri, 1); commit(); } } }, 'Удалить'));
     const prev = el('div', { class: 'prev' });
     row.forEach((u, ui) => {
-      const unit = el('div', { class: 'unit', draggable: !u.stack, 'data-ui': ui, style: 'width:' + pct(widths[ui]) + '%' });
+      const unit = el('div', { class: 'unit', draggable: u.stack ? false : 'true', 'data-ui': ui, style: 'width:' + pct(widths[ui]) + '%' });
       if (u.stack) {
         unit.append(el('span', { class: 'colh', draggable: 'true', title: 'Перетащить всю колонку' }, '⠿ колонка · ' + u.stack.length));
         u.stack.forEach((im, k) => unit.append(cell(im, () => removeImage(ri, ui, k), k)));
