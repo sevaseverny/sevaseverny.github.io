@@ -16,6 +16,9 @@ def pct(x): return ('%.2f' % x).rstrip('0').rstrip('.')
 def img_html(it, style, ind):
     if it['src'].startswith('videos/'):   # зацикленное видео без звука, не входит в лайтбокс
         return '%s<div class="vwrap" style="%s"><video src="/%s" autoplay loop muted playsinline preload="auto" disablepictureinpicture></video></div>' % (ind, style, it['src'])
+    if it['src'].endswith('-anim.svg'):   # векторная анимация от прокрутки: svg вставляется в страницу, не входит в лайтбокс
+        svg = open(os.path.join(ROOT, it['src']), encoding='utf-8').read().strip()
+        return '%s<div class="vwrap anim" style="%s">%s</div>' % (ind, style, svg.replace('\n', ''))
     idattr = ' id="%s"' % it['id'] if it.get('id') else ''
     return '%s<a%s rel="fb_group" href="/%s" style="%s"><img class="image" src="/%s"></a>' % (ind, idattr, it['src'], style, it['src'])
 
