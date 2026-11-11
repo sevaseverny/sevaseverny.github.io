@@ -75,6 +75,7 @@ def main():
         m = re.search(r'(<div id="contacts">)(.*?)(\r?\n    </div>\r?\n    <div id="logoblock">)', s, re.S)
         return s[:m.start(2)] + NL + '      ' + block + s[m.start(3):]
     s = replace_between(s, '<!-- contacts:start -->', '<!-- contacts:end -->', contacts_html(d['contacts']), fb_contacts)
+    s = re.sub(r'<div id="contacts"[^>]*>', '<div id="contacts" style="--n:%d">' % len(d['contacts']), s, count=1)   # число строк для центрирования группы
     open(path, 'w', encoding='utf-8', newline='').write(s)
     print('built', len(d['rows']), 'rows')
 

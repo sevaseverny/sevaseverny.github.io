@@ -13,7 +13,8 @@
   display: block;
   z-index: 200;
   position: fixed;
-  top: 23vh;
+  /* --n — число строк контактов (ставит tools/build_gallery.py); центр группы не уезжает, когда строк больше или меньше */
+  top: calc(22vh - var(--n, 5) * (0.605vh + 0.55vw));
   left: 7vh;
   font-family: montserrat, sans-serif;
       font-size: calc(1.1vh + 1vw);
@@ -25,7 +26,7 @@
 
 @media (min-width: 80vh) {
   #contacts {
-    top: calc(22vh - 8.25vw);
+    top: calc(22vh - var(--n, 5) * 1.65vw);
     left: 7vw;
     font-size: 3vw;
     font-weight: 400;
@@ -33,8 +34,19 @@
 
   html:not([data-scroll='0']) #contacts {
     font-size: 2vh;
-    top: 5.5vh;
     left: 5vh;
+  }
+}
+
+/* после начала прокрутки плашка сужается до 22vh: текст по её вертикальной середине (высота группы = n строк × line-height 110%);
+   селектор с body специально сильнее правила в css/index.css, которое подключается позже */
+html:not([data-scroll='0']) body #contacts {
+  top: calc(11vh - var(--n, 5) * (0.605vh + 0.55vw));
+}
+
+@media (min-width: 80vh) {
+  html:not([data-scroll='0']) body #contacts {
+    top: calc(11vh - var(--n, 5) * 1.1vh);
   }
 }
 
