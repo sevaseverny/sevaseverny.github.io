@@ -221,19 +221,23 @@
   ],
   [
    {
-    "src": "images/3-copy-3-3x.jpg",
-    "w": 1787,
-    "h": 2527
-   },
-   {
     "src": "images/horse-2.jpg",
     "w": 1797,
     "h": 2000
    },
    {
-    "src": "images/3-copy-12-3x.jpg",
-    "w": 1787,
-    "h": 2527
+    "stack": [
+     {
+      "src": "images/3-copy-12-3x.jpg",
+      "w": 1787,
+      "h": 2527
+     },
+     {
+      "src": "images/3-copy-3-3x.jpg",
+      "w": 1787,
+      "h": 2527
+     }
+    ]
    }
   ],
   [
@@ -376,14 +380,14 @@
   ],
   [
    {
-    "src": "images/0029.jpg",
-    "w": 1200,
-    "h": 1200
-   },
-   {
     "src": "images/invite_sep2026.jpg",
     "w": 4096,
     "h": 4096
+   },
+   {
+    "src": "images/0029.jpg",
+    "w": 1200,
+    "h": 1200
    }
   ],
   [
@@ -472,23 +476,14 @@
   ],
   [
    {
-    "src": "images/baza1.jpg",
-    "w": 977,
-    "h": 1179
+    "src": "images/baza-anim.svg",
+    "w": 1000,
+    "h": 1000
    },
    {
-    "stack": [
-     {
-      "src": "images/photo_2026-07-28_18-38-08-2.jpg",
-      "w": 1280,
-      "h": 1280
-     },
-     {
-      "src": "images/baza3.jpg",
-      "w": 1700,
-      "h": 941
-     }
-    ]
+    "src": "images/photo_2026-07-28_18-38-08-2.jpg",
+    "w": 1280,
+    "h": 1280
    }
   ],
   [
@@ -717,23 +712,19 @@
   ],
   [
    {
-    "stack": [
-     {
-      "src": "images/bird-fish-2.jpg",
-      "w": 2385,
-      "h": 2385
-     },
-     {
-      "src": "images/lighthouses.jpg",
-      "w": 1430,
-      "h": 2088
-     }
-    ]
+    "src": "images/face-coords-ink.jpg",
+    "w": 2000,
+    "h": 2690
    },
    {
-    "src": "images/face-coords.jpg",
-    "w": 2911,
-    "h": 3916
+    "src": "images/bird-fish-2-ink.jpg",
+    "w": 2000,
+    "h": 2000
+   },
+   {
+    "src": "images/lighthouses-ink.jpg",
+    "w": 1430,
+    "h": 2088
    }
   ],
   [
@@ -772,20 +763,10 @@
   ],
   [
    {
-    "stack": [
-     {
-      "src": "images/main-smalltop.jpg",
-      "w": 1000,
-      "h": 1206,
-      "id": "era-site"
-     },
-     {
-      "src": "images/pen-lux.jpg",
-      "w": 660,
-      "h": 660,
-      "id": "era-pen"
-     }
-    ]
+    "src": "images/main-smalltop.jpg",
+    "w": 1000,
+    "h": 1206,
+    "id": "era-site"
    },
    {
     "stack": [
@@ -987,6 +968,13 @@
   ],
   [
    {
+    "src": "images/wok-anim.svg",
+    "w": 770,
+    "h": 475
+   }
+  ],
+  [
+   {
     "src": "images/Frame-54.jpg",
     "w": 2400,
     "h": 200
@@ -1043,13 +1031,6 @@
     "w": 1174,
     "h": 1000,
     "id": "zhivoi"
-   }
-  ],
-  [
-   {
-    "src": "images/wokashi_square-2.jpg",
-    "w": 4000,
-    "h": 2468
    }
   ],
   [
