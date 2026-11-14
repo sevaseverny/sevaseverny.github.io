@@ -13,11 +13,13 @@
   display: block;
   z-index: 200;
   position: fixed;
-  /* --n — число строк контактов (ставит tools/build_gallery.py); центр группы не уезжает, когда строк больше или меньше */
-  top: calc(22vh - var(--n, 5) * (0.605vh + 0.55vw));
+  /* --n — число строк контактов (ставит tools/build_gallery.py); --fs — размер шрифта: относительный, но не больше, чем влезает в плашку по высоте
+     (плашка 44vh, до ~62% под текст, остальное воздух сверху и снизу; высота группы = n строк × 110%) — так текст не вылезает при низком окне; top ставит группу по середине плашки */
+  --fs: min(calc(1.1vh + 1vw), calc(25vh / var(--n, 5)));
+  top: calc(22vh - var(--n, 5) * 0.55 * var(--fs));
   left: 7vh;
   font-family: montserrat, sans-serif;
-      font-size: calc(1.1vh + 1vw);
+  font-size: var(--fs);
   line-height: 110%;
   color: #FFFFFF !important;
   font-weight: 300;
@@ -26,27 +28,24 @@
 
 @media (min-width: 80vh) {
   #contacts {
-    top: calc(22vh - var(--n, 5) * 1.65vw);
-    left: 7vw;
-    font-size: 3vw;
+    --fs: min(3vw, calc(25vh / var(--n, 5)));
+    left: calc(var(--fs) * 7 / 3); /* как раньше 7vw при шрифте 3vw, но следует за шрифтом, когда он ужат по высоте */
     font-weight: 400;
-  }
-
-  html:not([data-scroll='0']) #contacts {
-    font-size: 2vh;
-    left: 5vh;
   }
 }
 
-/* после начала прокрутки плашка сужается до 22vh: текст по её вертикальной середине (высота группы = n строк × line-height 110%);
-   селектор с body специально сильнее правила в css/index.css, которое подключается позже */
+/* после начала прокрутки плашка сужается до 22vh (62% = 13.6vh под текст): текст по её вертикальной середине;
+   селектор с body специально сильнее правил в css/index.css, которое подключается позже */
 html:not([data-scroll='0']) body #contacts {
-  top: calc(11vh - var(--n, 5) * (0.605vh + 0.55vw));
+  --fs: min(calc(1.1vh + 1vw), calc(12.5vh / var(--n, 5)));
+  top: calc(11vh - var(--n, 5) * 0.55 * var(--fs));
+  font-size: var(--fs);
 }
 
 @media (min-width: 80vh) {
   html:not([data-scroll='0']) body #contacts {
-    top: calc(11vh - var(--n, 5) * 1.1vh);
+    --fs: min(2vh, calc(12.5vh / var(--n, 5)));
+    left: 5vh;
   }
 }
 
@@ -154,9 +153,9 @@ a img {
 .vwrap video { display: block; width: 100%; height: 100%; object-fit: cover; }
 .vcontainer .vwrap { width: 100%; }
 
-/* кнопка «наверх» в правом нижнем углу страницы */
+/* кнопка «наверх»: прикреплена к правому нижнему углу окна, всегда видна */
 #lastlogoblock { position: relative; }
-#totop { position: absolute; right: 3vw; bottom: 3vw; width: 48px; height: 48px; padding: 8px; box-sizing: content-box; opacity: .85; transition: opacity .2s, transform .2s; -webkit-tap-highlight-color: transparent; }
+#totop { position: fixed; z-index: 150; right: 3vw; bottom: 3vw; width: 48px; height: 48px; padding: 8px; box-sizing: content-box; opacity: .85; transition: opacity .2s, transform .2s; -webkit-tap-highlight-color: transparent; }
 #totop svg { display: block; filter: drop-shadow(0 0 3px rgba(0,0,0,.6)); }
 #totop:hover { opacity: 1; transform: translateY(-3px); }
 
