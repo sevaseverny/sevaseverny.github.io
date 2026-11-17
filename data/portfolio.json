@@ -19,6 +19,10 @@
   {
    "text": "telegram: @kapitanandaman",
    "href": ""
+  },
+  {
+   "text": "max: +79262030114",
+   "href": ""
   }
  ],
  "rows": [
@@ -185,10 +189,9 @@
     "id": "seedsbaba"
    },
    {
-    "src": "images/1015829_547511551961179_95934924_o.jpg",
-    "w": 1370,
-    "h": 890,
-    "id": "suhar"
+    "src": "videos/sukhareva_tower_web_short-2.mp4",
+    "w": 1080,
+    "h": 1350
    }
   ],
   [
@@ -1093,10 +1096,9 @@
     "id": "vansgarantholod"
    },
    {
-    "src": "images/Screen-Shot-2019-12-05.jpg",
-    "w": 1057,
-    "h": 700,
-    "id": "unfinished-logo"
+    "src": "images/sub.jpg",
+    "w": 1152,
+    "h": 768
    }
   ],
   [
