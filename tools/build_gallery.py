@@ -13,9 +13,35 @@ NL = '\r\n'
 
 def pct(x): return ('%.2f' % x).rstrip('0').rstrip('.')
 
+def video_poster(src):
+    """Постер для видео (кадр почти из конца ролика), чтобы пока видео грузится, был не чёрный прямоугольник.
+    Лежит рядом: videos/<имя>.poster.jpg; создаётся при сборке, если нет (нужен opencv-python; без него постера просто не будет)."""
+    rel = os.path.splitext(src)[0] + '.poster.jpg'
+    path = os.path.join(ROOT, rel)
+    if os.path.exists(path) and os.path.getmtime(path) >= os.path.getmtime(os.path.join(ROOT, src)):
+        return rel
+    try:
+        import cv2
+        cap = cv2.VideoCapture(os.path.join(ROOT, src))
+        n = int(cap.get(cv2.CAP_PROP_FRAME_COUNT)); fps = cap.get(cv2.CAP_PROP_FPS) or 25
+        cap.set(cv2.CAP_PROP_POS_FRAMES, max(0, n - 1 - int(fps * 0.2)))
+        ok, fr = cap.read()
+        if not ok:
+            cap.set(cv2.CAP_PROP_POS_FRAMES, 0); ok, fr = cap.read()
+        cap.release()
+        if not ok: return None
+        h, w = fr.shape[:2]
+        if w > 1280: fr = cv2.resize(fr, (1280, round(h * 1280 / w)), interpolation=cv2.INTER_AREA)
+        cv2.imwrite(path, fr, [cv2.IMWRITE_JPEG_QUALITY, 75])
+        return rel
+    except Exception:
+        return rel if os.path.exists(path) else None
+
 def img_html(it, style, ind):
     if it['src'].startswith('videos/'):   # зацикленное видео без звука, не входит в лайтбокс
-        return '%s<div class="vwrap" style="%s"><video src="/%s" autoplay loop muted playsinline preload="auto" disablepictureinpicture></video></div>' % (ind, style, it['src'])
+        poster = video_poster(it['src'])
+        pattr = ' poster="/%s"' % poster if poster else ''
+        return '%s<div class="vwrap" style="%s"><video src="/%s"%s autoplay loop muted playsinline preload="auto" disablepictureinpicture></video></div>' % (ind, style, it['src'], pattr)
     if it['src'].endswith('-anim.svg'):   # векторная анимация от прокрутки: svg вставляется в страницу, не входит в лайтбокс
         svg = open(os.path.join(ROOT, it['src']), encoding='utf-8').read().strip()
         return '%s<div class="vwrap anim" style="%s">%s</div>' % (ind, style, svg.replace('\n', ''))
