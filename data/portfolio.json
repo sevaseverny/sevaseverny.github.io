@@ -752,10 +752,10 @@
   ],
   [
    {
-    "src": "images/1010786_546929775352690_551690113_n.jpg",
-    "w": 960,
-    "h": 768,
-    "id": "kassa"
+    "src": "images/vts_vc.jpg",
+    "w": 1200,
+    "h": 800,
+    "id": "vira"
    },
    {
     "src": "images/marykay.jpg",
@@ -1010,20 +1010,6 @@
   ],
   [
    {
-    "src": "images/vts_vc.jpg",
-    "w": 1200,
-    "h": 800,
-    "id": "vira"
-   },
-   {
-    "src": "images/10861125_808652609180404_3821933912007085682_o.jpg",
-    "w": 1500,
-    "h": 1000,
-    "id": "best-schools"
-   }
-  ],
-  [
-   {
     "src": "images/alienstage-sm.jpg",
     "w": 1920,
     "h": 1080,
@@ -1090,6 +1076,13 @@
   ],
   [
    {
+    "src": "videos/ASTRA_logo_flower_0001-0110.mp4",
+    "w": 1920,
+    "h": 1080
+   }
+  ],
+  [
+   {
     "src": "images/5927324.jpg",
     "w": 1600,
     "h": 1000,
@@ -1099,13 +1092,6 @@
     "src": "images/sub.jpg",
     "w": 1152,
     "h": 768
-   }
-  ],
-  [
-   {
-    "src": "videos/ASTRA_logo_flower_0001-0110.mp4",
-    "w": 1920,
-    "h": 1080
    }
   ]
  ]
